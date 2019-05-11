@@ -71,8 +71,16 @@ footer {
 }
 
 
-/* new */
+/* ga,e */
 
+#assets * {
+  display: none
+}
+
+  #assets #plant {
+    width: 20px;
+    height: 20px;
+  }
 
 body {
   background-color: #635a57;

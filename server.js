@@ -10,7 +10,7 @@ app.get('/', function(request, response) {
 
 // main game
 app.get('/game', function(request, response) {
-  response.sendFile(__dirname + '/views/game.html');
+  response.sendFile(__dirname + '/views/group.html');
 });
 
 

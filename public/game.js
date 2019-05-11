@@ -49,7 +49,7 @@
     // just do a single handful
     var dotCoords
     for (var i = 0; i < paintStrength; i++) {
-      this.drawDot(randCoords(
+      this.drawPlant(randCoords(
         addCoords(coords, {x: -paintRadius, y: -paintRadius}),
         addCoords(coords, {x: paintRadius, y: paintRadius})
       ))
@@ -75,6 +75,7 @@
       opacity: 0.8,
       selectable: false
     });
+    img.scale(0.1)
     this.canvas.add(img);
   }
 
