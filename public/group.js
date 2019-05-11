@@ -10,10 +10,11 @@ window.onload = function() {
   g = new Game('game')
   
   
+  // tell server that the game is starting 
   setTimeout(function() {
     socket = io()
     socket.on("connect", function() {
-      socket.emit("start")
+      socket.emit("show-me-the-map")
     })
   }, 1000)
   

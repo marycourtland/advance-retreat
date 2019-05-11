@@ -13,7 +13,8 @@
   const dotSize = 2 // size of each dot
 
 
-  const Game = function(canvasId) {
+  const Game = function(canvasId, player) {
+    this.player = player
     this.canvas = new fabric.Canvas(canvasId, {
       backgroundColor: 'lightgray',
       selection: false
@@ -22,7 +23,7 @@
     this.canvas.on({
       'mouse:move': (event) => {
         var p = this.canvas.getPointer(event.e)
-        this.paint(p)
+        this.plant(p)
       }
     });
   }
@@ -30,15 +31,19 @@
   window.Game = Game;
   Game.prototype = {}
 
-  Game.prototype.paint = function(coords) {
-    // just do a single handful
-    var dotCoords
-    for (var i = 0; i < paintStrength; i++) {
-      this.drawPlant(randCoords(
-        addCoords(coords, {x: -paintRadius, y: -paintRadius}),
-        addCoords(coords, {x: paintRadius, y: paintRadius})
-      ))
+  Game.prototype.plant = function(coords) {
+    if (this.player) {
+      this.player.plant(coords)
     }
+    
+    this.drawPlant(coords)
+    
+    // for (var i = 0; i < paintStrength; i++) {
+    //   this.drawPlant(randCoords(
+    //     addCoords(coords, {x: -paintRadius, y: -paintRadius}),
+    //     addCoords(coords, {x: paintRadius, y: paintRadius})
+    //   ))
+    // }
   }
 
   Game.prototype.drawDot = function(coords) {
