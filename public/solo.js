@@ -9,7 +9,7 @@ var game
 
 window.onload = function() {
   socket = io()
-  game = new Game('game')
+  game = new Game('game', player)
   player.init()
   
   
@@ -21,10 +21,17 @@ window.onload = function() {
   }, 1000)
 }
 
+// TODO: there shouldn't be a mousemove event for planting
+
 
 const player = {
+  id: null,
+  coords: {x: 0, y: 0},
+  
   init: function() {
     socket.emit('join', (playerData) => {
+      this.id = playerData.id
+      this.coords = playerData.coords
     })
   },
   plant: function(coords) {

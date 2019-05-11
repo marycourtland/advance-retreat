@@ -20,30 +20,35 @@
       selection: false
     });
 
-    this.canvas.on({
-      'mouse:move': (event) => {
-        var p = this.canvas.getPointer(event.e)
-        this.plant(p)
-      }
-    });
   }
   
   window.Game = Game;
   Game.prototype = {}
-
-  Game.prototype.plant = function(coords) {
+  
+  Game.prototype.shouldPlantOnMousemove = function() {
+    this.canvas.on({
+      'mouse:move': (event) => {
+        var p = this.canvas.getPointer(event.e)
+        this.plantMany(p)
+      }
+    });
+  }
+  
+  Game.prototype.plantOne = function(coords) {
     if (this.player) {
       this.player.plant(coords)
     }
     
     this.drawPlant(coords)
-    
-    // for (var i = 0; i < paintStrength; i++) {
-    //   this.drawPlant(randCoords(
-    //     addCoords(coords, {x: -paintRadius, y: -paintRadius}),
-    //     addCoords(coords, {x: paintRadius, y: paintRadius})
-    //   ))
-    // }
+  }
+
+  Game.prototype.plantMany = function(coords) {
+    for (var i = 0; i < paintStrength; i++) {
+      this.plantOne(randCoords(
+        addCoords(coords, {x: -paintRadius, y: -paintRadius}),
+        addCoords(coords, {x: paintRadius, y: paintRadius})
+      ))
+    }
   }
 
   Game.prototype.drawDot = function(coords) {
