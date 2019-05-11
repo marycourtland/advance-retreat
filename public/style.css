@@ -89,18 +89,32 @@ body {
   width: 100%;
 }
 
-#game {
-  position: absolute;
-  top: 0;
-  left: 0;
-  background-color: #d3d3d3;
-}
+  #game-container * {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
 
-#boundary {
-  width: 800px;
-  height: 524px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-}
+  #game {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #d3d3d3;
+  }
+
+  #boundary {
+    width: 800px;
+    height: 524px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+  }
+
+  #action-plant {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background: #324a70;
+    color: #cde2f2;
+  }

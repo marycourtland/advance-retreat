@@ -11,6 +11,9 @@
   const paintStrength = 2
   const paintRate = 5 // paints per second
   const dotSize = 2 // size of each dot
+  
+  // for mobile client
+  const buttonRadius = 50
 
 
   const Game = function(canvasId, player) {
@@ -85,8 +88,31 @@
     this.canvas.add(img);
   }
   
+  
+  // UNUSED
   Game.prototype.drawButton = function(coords, events) {
     
+    const circle1 = new fabric.Circle({
+      left: coords.x - (buttonRadius + 20)/2,
+      top: coords.y - (buttonRadius + 20)/2,
+      fill: '#324a70',
+      radius: buttonRadius + 20,
+      selectable: false
+    });
+    const circle2 = new fabric.Circle({
+      left: coords.x - (buttonRadius)/2,
+      top: coords.y - (buttonRadius)/2,
+      fill: '#cde2f2',
+      radius: buttonRadius,
+      selectable: false
+    });
+    
+    if (events) {
+      circle2.on(events)
+    }
+    
+    this.canvas.add(circle1);
+    this.canvas.add(circle2);
   }
 
 })()

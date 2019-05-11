@@ -21,19 +21,14 @@ const listener = server.listen(process.env.PORT, function() {
 });
 
 io.on('connection', function (socket) {
-  console.log('m0')
   
   socket.on('show-me-the-map', (d) => {
-    console.log('m1')
     socket.join("map-view")
   })
   
   socket.on('game:join', (data, callback) => {
-    console.log('m2')
     const newPlayer = addPlayer()
-    console.log('m3')
     callback(null, newPlayer)
-    console.log('m4')
     
   });
   
@@ -76,7 +71,7 @@ function addPlayer() {
 }
 
 function addPlant(coords) {
-  console.log('planting', coords)
+  // console.log('planting', coords)
   const newPlant = {
     type: 'plant',
     coords: coords

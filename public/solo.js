@@ -23,6 +23,7 @@ window.onload = function() {
   // action buttons
   game.drawButton({x: 20, y: 20}, {
     "event:mouseup": (evt) => {
+      console.log('plant action')
       player.plant()
     }
   })
@@ -37,13 +38,12 @@ const player = {
   coords: {x: 0, y: 0},
   
   init: function() {
-    socket.emit('game:join', {}, (playerData, arg2) => {
+    socket.emit('game:join', {}, (error, playerData) => {
       this.id = playerData.id
       this.coords = playerData.coords
     })
   },
   plant: function(coords) {
-    console.log('will plant at', coords)
     coords = coords || this.coords
     if (!coords) { return }
     socket.emit('action:plant', coords)
