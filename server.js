@@ -1,5 +1,8 @@
 const express = require('express');
 const app = express();
+const server = require('http').createServer(app);
+const io = require('socket.io')(server);
+
 
 app.use(express.static('public'));
 
@@ -14,6 +17,26 @@ app.get('/game', function(request, response) {
 });
 
 
-const listener = app.listen(process.env.PORT, function() {
+
+const listener = server.listen(process.env.PORT, function() {
   console.log('Your app is listening on port ' + listener.address().port);
+});
+
+var mainSocket = null
+
+
+io.on('connection', function (socket) {
+  console.log('Socket connected!', socket.id)
+  
+  socket.on('start', (d) => {
+    mainSocket = socket
+  })
+  
+  socket.on('join', (d) => socket.join(d));
+  
+  socket.on('data', (d) => {
+  });
+  
+  // socket.on('disconnect', function () {
+  // });
 });

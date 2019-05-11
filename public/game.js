@@ -72,3 +72,30 @@
 
 
 //////
+
+function addCoords(coords1, coords2) {
+  return {
+    x: coords1.x + coords2.x,
+    y: coords1.y + coords2.y,
+  }
+}
+
+
+function randCoords(coords1, coords2) {
+  if (!coords2) {
+    coords2 = coords1
+    coords1 = {x: 0, y: 0}
+  }
+  return {
+    x: randInt(coords1.x, coords2.x),
+    y: randInt(coords1.y, coords2.y),
+  }
+}
+
+function randInt(a, b) {
+  if (typeof b === 'undefined') {
+    b = a
+    a = 0
+  }
+  return a + Math.floor(Math.random() * (b - a))
+}

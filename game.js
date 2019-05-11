@@ -9,6 +9,9 @@ const utils = require('./utils')
 // meh
 const playersById = {}
 
+const items = []
+
+
 function addPlayer() {
   const player = new Player(
     `player${new Date().valueOf() - 1557600000000}`, // id
@@ -18,4 +21,9 @@ function addPlayer() {
   playersById[player.id] = player
   
   return player
+}
+
+
+function plant(coords) {
+  
 }
