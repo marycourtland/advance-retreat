@@ -21,7 +21,6 @@ const listener = server.listen(process.env.PORT, function() {
 });
 
 io.on('connection', function (socket) {
-  console.log('Socket connected!', socket.id)
   
   socket.on('show-me-the-map', (d) => {
     socket.join("map-view")
@@ -34,8 +33,8 @@ io.on('connection', function (socket) {
     
   });
   
-  // socket.on('disconnect', function () {
-  // });
+  socket.on('disconnect', () => {
+  });
 });
 
 

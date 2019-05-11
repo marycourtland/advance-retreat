@@ -3,14 +3,12 @@
 /* global io, fabric, Game */
 
 
-var g
 var socket
+var game
 
 window.onload = function() {
-  g = new Game('game')
-  
-  
-  // tell server that the game is starting 
+  game = new Game('game')
+
   setTimeout(function() {
     socket = io()
     socket.on("connect", function() {
