@@ -1,13 +1,23 @@
 
 const gameSize = {x: 800, y: 524}
 
-const paintRadius = 40 // region in which to paint
-const paintRate = 10 // squares at a time
-const paintDotSize = 3 // size of each dot
+const paintRadius = 15 // region in which to paint
+const paintRate = 5 // squares at a time
+const paintDotSize = 2 // size of each dot
+
+var canvas, ctx
 
 window.onload = function() {
-  const canvas = document.getElementById('game')
-  const ctx = canvas.getContext('2d')
+  canvas = document.getElementById('game')
+  ctx = canvas.getContext('2d')
+  
+  canvas.onmousedown = function(evt) {
+    const coords = { x: evt.clientX, y: evt.clientY }
+    console.log('coords', coords)
+    
+  }
+  
+  paint(ctx, {x: 200, y: 200})
 }
 
 function paint(ctx,  coords) {
@@ -26,13 +36,20 @@ function paint(ctx,  coords) {
             paintDotSize
         )
     }
-
 }
 
-function go() {
-  paint({x: 200, y: 200})
-}
 
+
+// function step(timestamp) {
+//   if (!start) start = timestamp;
+//   var progress = timestamp - start;
+//   element.style.transform = 'translateX(' + Math.min(progress / 10, 200) + 'px)';
+//   if (progress < 2000) {
+//     window.requestAnimationFrame(step);
+//   }
+// }
+
+// window.requestAnimationFrame(step);
 
 //////
 
@@ -50,7 +67,8 @@ function randCoords(coords1, coords2) {
         coords1 = {x: 0, y: 0}
     }
     return {
-        x: randInt()
+        x: randInt(coords1.x, coords2.x),
+        y: randInt(coords1.y, coords2.y),
     }
 }
 
