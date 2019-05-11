@@ -18,28 +18,9 @@
     <!-- import the webpage's stylesheet -->
     <link rel="stylesheet" href="/style.css">
     
-    <!-- import the webpage's client-side javascript file -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.7.22/fabric.min.js"></script>
     <script src="/client.js" defer></script>
     
-    <style>
-      body {
-        margin: 0
-      }
-      #game {
-        position: fixed;
-        x:  0;
-        y:  0;
-        background: red;
-      }
-      #boundary {
-        width: 800px;
-        height: 524px;
-        position: fixed;
-        x: 0;
-        y: 0;
-        pointer-events: none;
-      }
-    </style>
   </head>
   <body>
     <canvas id="game" width="800" height="524"></canvas>

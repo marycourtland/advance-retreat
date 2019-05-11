@@ -1,5 +1,9 @@
 // PROTOTYPE!!!!
 
+/* global fabric */
+
+
+
 const gameSize = {x: 800, y: 524}
 
 const paintRadius = 15 // region in which to paint

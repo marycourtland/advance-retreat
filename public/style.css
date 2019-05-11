@@ -69,3 +69,25 @@ footer {
   padding-top: 25px;
   border-top: 1px solid lightgrey;
 }
+
+
+/* new */
+
+
+body {
+  margin: 0
+}
+#game {
+  position: fixed;
+  top:  0;
+  left:  0;
+  background: red;
+}
+#boundary {
+  width: 800px;
+  height: 524px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
