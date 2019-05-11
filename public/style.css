@@ -112,9 +112,17 @@ body {
   }
 
   #action-plant {
-    position: absolute;
-    width: 100px;
-    height: 100px;
     background: #324a70;
     color: #cde2f2;
+    
+    position: absolute;
+    top: 10px;
+    left: 40px;
+    width: 100px;
+    height: 0px;
+    border-radius: 50px;
+    text-align: center;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    line-height: 0;
   }

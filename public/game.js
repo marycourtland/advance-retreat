@@ -16,8 +16,7 @@
   const buttonRadius = 50
 
 
-  const Game = function(canvasId, player) {
-    this.player = player
+  const Game = function(canvasId) {
     this.canvas = new fabric.Canvas(canvasId, {
       backgroundColor: 'lightgray',
       selection: false
@@ -47,10 +46,6 @@
   }
   
   Game.prototype.plantOne = function(coords) {
-    if (this.player) {
-      this.player.plant(coords)
-    }
-    
     this.drawPlant(coords)
   }
 

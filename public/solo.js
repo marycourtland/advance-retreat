@@ -9,7 +9,7 @@ var game
 
 window.onload = function() {
   socket = io()
-  game = new Game('game', player)
+  game = new Game('game')
   game.shouldPlantOneOnMousemove()
   player.init()
   
@@ -21,12 +21,9 @@ window.onload = function() {
   }, 1000)
   
   // action buttons
-  game.drawButton({x: 20, y: 20}, {
-    "event:mouseup": (evt) => {
-      console.log('plant action')
-      player.plant()
-    }
-  })
+  document.getElementById('action-plant').onclick = function() {
+    player.plant()
+  }
   
 }
 
@@ -46,6 +43,7 @@ const player = {
   plant: function(coords) {
     coords = coords || this.coords
     if (!coords) { return }
+    game.plantOne(coords)
     socket.emit('action:plant', coords)
   }
 }
