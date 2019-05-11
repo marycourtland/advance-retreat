@@ -1,3 +1,4 @@
+// PROTOTYPE!!!!
 
 const gameSize = {x: 800, y: 524}
 
@@ -7,18 +8,32 @@ const paintDotSize = 2 // size of each dot
 
 var canvas, ctx
 
+var paintCoords
+
 window.onload = function() {
   canvas = document.getElementById('game')
   ctx = canvas.getContext('2d')
   
   canvas.onmousedown = function(evt) {
-    const coords = { x: evt.clientX, y: evt.clientY }
-    console.log('coords', coords)
-    
+    paintCoords = { x: evt.clientX, y: evt.clientY }
+    console.log('coords', paintCoords)
+  }
+  
+  canvas.onmouseup = function(evt) {
+    paintCoords = null
   }
   
   paint(ctx, {x: 200, y: 200})
+window.requestAnimationFrame(step);
 }
+
+function step(timestamp) {
+  if (paintCoords) {
+    paint(ctx, paintCoords)
+  }
+  window.requestAnimationFrame(step);
+}
+
 
 function paint(ctx,  coords) {
     // just do a single handful
