@@ -78,16 +78,25 @@ body {
   background-color: #635a57;
   margin: 0;
 }
-#game {
+
+#game-container {
   position: fixed;
-  top:  0;
-  left:  0;
-  background: #d3d3d3;
+  top: 0;
+  left: 0;
+  width: 100%;
 }
+
+#game {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #d3d3d3;
+}
+
 #boundary {
   width: 800px;
   height: 524px;
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   pointer-events: none;
