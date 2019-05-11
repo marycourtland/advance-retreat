@@ -7,7 +7,7 @@
 
   const gameSize = {x: 800, y: 524}
 
-  const paintRadius = 15 // region in which to paint
+  const paintRadius = 30 // region in which to paint
   const paintStrength = 2
   const paintRate = 5 // paints per second
   const dotSize = 2 // size of each dot
@@ -67,15 +67,18 @@
     this.canvas.add(dot);
   }
   
+  
 
   Game.prototype.drawPlant = function(coords) {
-    var img = new fabric.Image(document.getElementById('plant'), {
+    const img = new fabric.Image(document.getElementById('plant'), {
       left: coords.x,
       top: coords.y,
       opacity: 0.8,
       selectable: false
     });
-    img.scale(0.1)
+    const scaleBase = 0.1
+    const scaleFuzz = Math.random() * (scaleBase)
+    img.scale(scaleBase + (scaleFuzz - (scaleFuzz/2)))
     this.canvas.add(img);
   }
 
