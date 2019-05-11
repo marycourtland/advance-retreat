@@ -77,13 +77,12 @@ footer {
 body {
   background-color: #635a57;
   margin: 0;
-  
 }
 #game {
   position: fixed;
   top:  0;
   left:  0;
-  background: red;
+  background: #d3d3d3;
 }
 #boundary {
   width: 800px;

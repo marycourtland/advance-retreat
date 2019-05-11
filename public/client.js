@@ -25,7 +25,7 @@ window.onload = function() {
   
   return
   
-  
+  // {"e":{"isTrusted":true},"target":null,"subTargets":[],"button":1,"isClick":false,"pointer":{"x":252,"y":114.15625},"absolutePointer":{"x":252,"y":114.15625},"transform":null}
   
   
   canvas = document.getElementById('game')
