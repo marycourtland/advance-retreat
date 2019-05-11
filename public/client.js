@@ -3,42 +3,38 @@
 const gameSize = {x: 800, y: 524}
 
 const paintRadius = 15 // region in which to paint
-const paintRate = 5 // squares at a time
+const paintStrength = 2
+const paintRate = 5 // paints per second
 const paintDotSize = 2 // size of each dot
 
 var canvas, ctx
 
-var paintCoords
+var paintInterval
 
 window.onload = function() {
   canvas = document.getElementById('game')
   ctx = canvas.getContext('2d')
   
   canvas.onmousedown = function(evt) {
-    paintCoords = { x: evt.clientX, y: evt.clientY }
-    console.log('coords', paintCoords)
+    const coords  = { x: evt.clientX, y: evt.clientY }
+    console.log('coords', coords)
+    paintInterval = setInterval(() => {
+      paint(ctx, coords)
+    }, 1000 / paintRate)
   }
   
   canvas.onmouseup = function(evt) {
-    paintCoords = null
+    clearInterval(paintInterval)
   }
   
   paint(ctx, {x: 200, y: 200})
-window.requestAnimationFrame(step);
-}
-
-function step(timestamp) {
-  if (paintCoords) {
-    paint(ctx, paintCoords)
-  }
-  window.requestAnimationFrame(step);
 }
 
 
 function paint(ctx,  coords) {
     // just do a single handful
     var dotCoords
-    for (var i = 0; i < paintRate; i++) {
+    for (var i = 0; i < paintStrength; i++) {
         dotCoords = randCoords(
             addCoords(coords, {x: -paintRadius, y: -paintRadius}),
             addCoords(coords, {x: paintRadius, y: paintRadius})
@@ -55,16 +51,6 @@ function paint(ctx,  coords) {
 
 
 
-// function step(timestamp) {
-//   if (!start) start = timestamp;
-//   var progress = timestamp - start;
-//   element.style.transform = 'translateX(' + Math.min(progress / 10, 200) + 'px)';
-//   if (progress < 2000) {
-//     window.requestAnimationFrame(step);
-//   }
-// }
-
-// window.requestAnimationFrame(step);
 
 //////
 
