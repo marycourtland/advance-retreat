@@ -1,8 +1,15 @@
 // PROTOTYPE!!!!
 
-/* global fabric */
+/* global fabric, Game */
 
 
+var g
+
+window.onload = function() {
+  g = new Game('game')
+}
+
+//////
 
 const gameSize = {x: 800, y: 524}
 
@@ -13,7 +20,7 @@ const paintDotSize = 2 // size of each dot
 
 var canvas
 
-window.onload = function() {
+window.onloadz = function() {
   canvas = new fabric.Canvas('game', {
     backgroundColor: 'lightgray',
     selection: false
