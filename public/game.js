@@ -68,15 +68,14 @@
   }
   
 
-  Game.prototype.drawDot = function(coords) {
-    const dot = new fabric.Circle({
+  Game.prototype.drawPlant = function(coords) {
+    var img = new fabric.Image(document.getElementById('plant'), {
       left: coords.x,
       top: coords.y,
-      fill: 'green',
-      radius: dotSize,
+      opacity: 0.8,
       selectable: false
     });
-    this.canvas.add(dot);
+    this.canvas.add(img);
   }
 
 })()
