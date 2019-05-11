@@ -10,8 +10,8 @@ var game
 window.onload = function() {
   socket = io()
   game = new Game('game', player)
+  game.shouldPlantOneOnMousemove()
   player.init()
-  
   
   setTimeout(function() {
     socket = io()
@@ -19,9 +19,17 @@ window.onload = function() {
       player.init()
     })
   }, 1000)
+  
+  // action buttons
+  game.drawButton({x: 20, y: 20}, {
+    "event:mouseup": (evt) => {
+      player.plant()
+    }
+  })
+  
 }
 
-// TODO: there shouldn't be a mousemove event for planting
+// TODO: there shouldn't be a mousemove event for planting. But it's fun
 
 
 const player = {
@@ -35,7 +43,8 @@ const player = {
     })
   },
   plant: function(coords) {
-    // emit to socket
+    coords = coords || this.coords
+    if (!coords) { return }
     socket.emit('action:plant', coords)
   }
 }

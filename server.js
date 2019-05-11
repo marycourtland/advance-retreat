@@ -26,7 +26,9 @@ io.on('connection', function (socket) {
     socket.join("map-view")
   })
   
-  socket.on('join', (d) => socket.join(d));
+  socket.on('game:join', () => {
+    const newPlayer = addPlayer()
+  });
   
   socket.on('action:plant', (coords) => {
     addPlant(coords)
@@ -67,7 +69,6 @@ function addPlayer() {
 }
 
 function addPlant(coords) {
-  console.log('Planting at ', coords)
   const newPlant = {
     type: 'plant',
     coords: coords

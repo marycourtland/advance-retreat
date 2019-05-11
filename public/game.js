@@ -34,6 +34,15 @@
     });
   }
   
+  Game.prototype.shouldPlantOneOnMousemove = function() {
+    this.canvas.on({
+      'mouse:move': (event) => {
+        var p = this.canvas.getPointer(event.e)
+        this.plantOne(p)
+      }
+    });
+  }
+  
   Game.prototype.plantOne = function(coords) {
     if (this.player) {
       this.player.plant(coords)
@@ -62,7 +71,6 @@
     this.canvas.add(dot);
   }
   
-  
 
   Game.prototype.drawPlant = function(coords) {
     const img = new fabric.Image(document.getElementById('plant'), {
@@ -75,6 +83,10 @@
     const scaleFuzz = Math.random() * (scaleBase)
     img.scale(scaleBase + (scaleFuzz - (scaleFuzz/2)))
     this.canvas.add(img);
+  }
+  
+  Game.prototype.drawButton = function(coords, events) {
+    
   }
 
 })()
