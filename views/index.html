@@ -20,7 +20,28 @@
     
     <!-- import the webpage's client-side javascript file -->
     <script src="/client.js" defer></script>
+    
+    <style>
+      body {
+        margin: 0
+      }
+      #game {
+        position: fixed;
+        x:  0;
+        y:  0;
+        background: red;
+      }
+      #boundary {
+        width: 800px;
+        height: 524px;
+        position: fixed;
+        x: 0;
+        y: 0;
+      }
+    </style>
   </head>
   <body>
+    <canvas id="game" width="800" height="524"></canvas>
+    <img id="boundary" src="file:///Users/mary/may2019gamejam/images/usa_cutout.png">
   </body>
 </html>

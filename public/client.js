@@ -1,42 +1,63 @@
-// client-side js
-// run by the browser each time your view template is loaded
 
-console.log('hello world :o');
+const gameSize = {x: 800, y: 524}
 
-// our default array of dreams
-const dreams = [
-  'Find and count some sheep',
-  'Climb a really tall mountain',
-  'Wash the dishes'
-];
+const paintRadius = 40 // region in which to paint
+const paintRate = 10 // squares at a time
+const paintDotSize = 3 // size of each dot
 
-// define variables that reference elements on our page
-const dreamsList = document.getElementById('dreams');
-const dreamsForm = document.forms[0];
-const dreamInput = dreamsForm.elements['dream'];
-
-// a helper function that creates a list item for a given dream
-const appendNewDream = function(dream) {
-  const newListItem = document.createElement('li');
-  newListItem.innerHTML = dream;
-  dreamsList.appendChild(newListItem);
+window.onload = function() {
+  const canvas = document.getElementById('game')
+  const ctx = canvas.getContext('2d')
 }
 
-// iterate through every dream and add it to our page
-dreams.forEach( function(dream) {
-  appendNewDream(dream);
-});
+function paint(ctx,  coords) {
+    // just do a single handful
+    var dotCoords
+    for (var i = 0; i < paintRate; i++) {
+        dotCoords = randCoords(
+            addCoords(coords, {x: -paintRadius, y: -paintRadius}),
+            addCoords(coords, {x: paintRadius, y: paintRadius})
+        )
+        ctx.fillStyle = 'green'
+        ctx.fillRect(
+            dotCoords.x,
+            dotCoords.y,
+            paintDotSize,
+            paintDotSize
+        )
+    }
 
-// listen for the form to be submitted and add a new dream when it is
-dreamsForm.onsubmit = function(event) {
-  // stop our form submission from refreshing the page
-  event.preventDefault();
+}
 
-  // get dream value and add it to the list
-  dreams.push(dreamInput.value);
-  appendNewDream(dreamInput.value);
+function go() {
+  paint({x: 200, y: 200})
+}
 
-  // reset form 
-  dreamInput.value = '';
-  dreamInput.focus();
-};
+
+//////
+
+function addCoords(coords1, coords2) {
+    return {
+        x: coords1.x + coords2.x,
+        y: coords1.y + coords2.y,
+    }
+}
+
+
+function randCoords(coords1, coords2) {
+    if (!coords2) {
+        coords2 = coords1
+        coords1 = {x: 0, y: 0}
+    }
+    return {
+        x: randInt()
+    }
+}
+
+function randInt(a, b) {
+    if (typeof b === 'undefined') {
+        b = a
+        a = 0
+    }
+    return a + Math.floor(Math.random() * (b - a))
+}
