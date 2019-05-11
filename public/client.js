@@ -16,41 +16,22 @@ var canvas, ctx
 var paintInterval
 
 window.onload = function() {
-  canvas = new fabric.StaticCanvas('game', {
+  canvas = new fabric.Canvas('game', {
     backgroundColor: 'lightgray'
     // ...
   });
   
   canvas.on({
-    'touch:gesture': function() {
-      console.log('Evt - Gesture');
-    },
-    'touch:drag': function() {
-      console.log('Evt - Dragging');
-    },
-    'touch:orientation': function() {
-      console.log('Evt - Orientation');
-    },
-    'touch:shake': function() {
-      console.log('Evt - Shaking');
-    },
-    'touch:longpress': function() {
-      console.log('Evt - Longpress');
-    },
-    'touch:longpress': function() {
-      console.log('Evt - Longpress');
-    },
-    'event:dragover': function() {
-      console.log('Evt - dragover');
-    },
-    'event:dragover': function() {
-      console.log('Evt - dragover');
+    'mouse:move': function(event) {
+      var p = canvas.getPointer(event.e)
+      paint(p)
     }
   });
   
   paint({x: 200, y: 200})
   
   return
+  // {"e":{"isTrusted":true},"target":null,"subTargets":[],"button":1,"isClick":false,"pointer":{"x":253,"y":97.15625},"absolutePointer":{"x":253,"y":97.15625},"transform":null}
   
   // {"e":{"isTrusted":true},"target":null,"subTargets":[],"button":1,"isClick":false,"pointer":{"x":252,"y":114.15625},"absolutePointer":{"x":252,"y":114.15625},"transform":null}
   
