@@ -8,9 +8,11 @@ var socket
 var game
 
 window.onload = function() {
-  document.getElementById("intro").onclick = function() {
-    document.getElementById("intro").style.display = "none";
+  const intro = document.getElementById("intro")
+  intro.onclick = function() {
+    intro.className = 'hidden'
   }
+  start()
 }
 
 function start() {

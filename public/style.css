@@ -93,9 +93,15 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
+  opacity: 1;
   
-  transition: visibility 0s, opacity 0.5s linear;
+  transition: opacity 1s ease-out;
 }
+  #intro.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
   #intro * {
     text-align: center;
   }

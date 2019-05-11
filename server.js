@@ -71,7 +71,7 @@ function addPlayer() {
 }
 
 function addPlant(coords) {
-  // console.log('planting', coords)
+  console.log('planting', coords)
   const newPlant = {
     type: 'plant',
     coords: coords
