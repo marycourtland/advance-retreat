@@ -29,7 +29,7 @@ window.onload = function() {
   
 }
 
-// TODO: there shouldn't be a mousemove event for planting. But it's fun
+// TODO: there shouldn't be a mousemove event for planting. But it's fun soooo
 
 
 const player = {
@@ -37,12 +37,13 @@ const player = {
   coords: {x: 0, y: 0},
   
   init: function() {
-    socket.emit('join', (playerData) => {
+    socket.emit('game:join', {}, (playerData, arg2) => {
       this.id = playerData.id
       this.coords = playerData.coords
     })
   },
   plant: function(coords) {
+    console.log('will plant at', coords)
     coords = coords || this.coords
     if (!coords) { return }
     socket.emit('action:plant', coords)
