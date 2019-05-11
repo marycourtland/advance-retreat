@@ -11,14 +11,12 @@ const paintStrength = 2
 const paintRate = 5 // paints per second
 const paintDotSize = 2 // size of each dot
 
-var canvas, ctx
-
-var paintInterval
+var canvas
 
 window.onload = function() {
   canvas = new fabric.Canvas('game', {
-    backgroundColor: 'lightgray'
-    // ...
+    backgroundColor: 'lightgray',
+    selection: false
   });
   
   canvas.on({
@@ -28,32 +26,7 @@ window.onload = function() {
     }
   });
   
-  paint({x: 200, y: 200})
-  
-  return
-  // {"e":{"isTrusted":true},"target":null,"subTargets":[],"button":1,"isClick":false,"pointer":{"x":253,"y":97.15625},"absolutePointer":{"x":253,"y":97.15625},"transform":null}
-  
-  // {"e":{"isTrusted":true},"target":null,"subTargets":[],"button":1,"isClick":false,"pointer":{"x":252,"y":114.15625},"absolutePointer":{"x":252,"y":114.15625},"transform":null}
-  
-  
-  canvas = document.getElementById('game')
-  ctx = canvas.getContext('2d')
-  
-  canvas.onmousedown = function(evt) {
-    const coords  = { x: evt.clientX, y: evt.clientY }
-    console.log('coords', coords)
-    paintInterval = setInterval(() => {
-      paint(ctx, coords)
-    }, 1000 / paintRate)
-  }
-  
-  canvas.onmouseup = function(evt) {
-    clearInterval(paintInterval)
-  }
-  
-  paint(ctx, {x: 200, y: 200})
 }
-
 
 function paint(coords) {
     // just do a single handful
@@ -68,7 +41,8 @@ function paint(coords) {
           left: dotCoords.x,
           top: dotCoords.y,
           fill: 'green',
-          radius: paintDotSize
+          radius: paintDotSize,
+          selectable: false
         });
         canvas.add(dot);
     }
