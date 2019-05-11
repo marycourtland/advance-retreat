@@ -21,6 +21,33 @@ window.onload = function() {
     // ...
   });
   
+  canvas.on({
+    'touch:gesture': function() {
+      console.log('Evt - Gesture');
+    },
+    'touch:drag': function() {
+      console.log('Evt - Dragging');
+    },
+    'touch:orientation': function() {
+      console.log('Evt - Orientation');
+    },
+    'touch:shake': function() {
+      console.log('Evt - Shaking');
+    },
+    'touch:longpress': function() {
+      console.log('Evt - Longpress');
+    },
+    'touch:longpress': function() {
+      console.log('Evt - Longpress');
+    },
+    'event:dragover': function() {
+      console.log('Evt - dragover');
+    },
+    'event:dragover': function() {
+      console.log('Evt - dragover');
+    }
+  });
+  
   paint({x: 200, y: 200})
   
   return
