@@ -75,7 +75,8 @@ footer {
 
 
 body {
-  margin: 0
+  background-color: #635a57;
+  margin: 0;
 }
 #game {
   position: fixed;

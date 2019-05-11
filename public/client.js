@@ -17,11 +17,13 @@ var paintInterval
 
 window.onload = function() {
   canvas = new fabric.Canvas('game', {
-    backgroundColor: 'gray',
+    backgroundColor: 'lightgray',
     selectionColor: 'blue',
     selectionLineWidth: 2
     // ...
   });
+  
+  paint({x: 200, y: 200})
   
   return
   
@@ -47,7 +49,7 @@ window.onload = function() {
 }
 
 
-function paint(ctx,  coords) {
+function paint(coords) {
     // just do a single handful
     var dotCoords
     for (var i = 0; i < paintStrength; i++) {
@@ -56,12 +58,11 @@ function paint(ctx,  coords) {
             addCoords(coords, {x: paintRadius, y: paintRadius})
         )
       
-        const dot = new fabric.Rect({
+        const dot = new fabric.Circle({
           left: dotCoords.x,
           top: dotCoords.y,
           fill: 'green',
-          width: paintDotSize,
-          height: paintDotSize
+          radius: paintDotSize
         });
         canvas.add(dot);
     }
