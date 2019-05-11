@@ -8,6 +8,12 @@ var socket
 var game
 
 window.onload = function() {
+  document.getElementById("intro").onclick = function() {
+    document.getElementById("intro").style.display = "none";
+  }
+}
+
+function start() {
   socket = io()
   game = new Game('game')
   game.shouldPlantOneOnMousemove()
@@ -24,7 +30,6 @@ window.onload = function() {
   document.getElementById('action-plant').onclick = function() {
     player.plant()
   }
-  
 }
 
 // TODO: there shouldn't be a mousemove event for planting. But it's fun soooo
