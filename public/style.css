@@ -111,13 +111,18 @@ body {
     pointer-events: none;
   }
 
+
+
   #action-plant {
     background: #324a70;
     color: #cde2f2;
+    opacity: 0.7;
+    user-select: none;
     
     position: absolute;
     top: 10px;
     left: 40px;
+    
     width: 100px;
     height: 0px;
     border-radius: 50px;
