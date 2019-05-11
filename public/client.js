@@ -16,10 +16,8 @@ var canvas, ctx
 var paintInterval
 
 window.onload = function() {
-  canvas = new fabric.Canvas('game', {
-    backgroundColor: 'lightgray',
-    selectionColor: 'blue',
-    selectionLineWidth: 2
+  canvas = new fabric.StaticCanvas('game', {
+    backgroundColor: 'lightgray'
     // ...
   });
   
