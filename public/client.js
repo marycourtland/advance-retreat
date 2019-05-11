@@ -16,6 +16,18 @@ var canvas, ctx
 var paintInterval
 
 window.onload = function() {
+  canvas = new fabric.Canvas('game', {
+    backgroundColor: 'gray',
+    selectionColor: 'blue',
+    selectionLineWidth: 2
+    // ...
+  });
+  
+  return
+  
+  
+  
+  
   canvas = document.getElementById('game')
   ctx = canvas.getContext('2d')
   
@@ -43,13 +55,15 @@ function paint(ctx,  coords) {
             addCoords(coords, {x: -paintRadius, y: -paintRadius}),
             addCoords(coords, {x: paintRadius, y: paintRadius})
         )
-        ctx.fillStyle = 'green'
-        ctx.fillRect(
-            dotCoords.x,
-            dotCoords.y,
-            paintDotSize,
-            paintDotSize
-        )
+      
+        const dot = new fabric.Rect({
+          left: dotCoords.x,
+          top: dotCoords.y,
+          fill: 'green',
+          width: paintDotSize,
+          height: paintDotSize
+        });
+        canvas.add(dot);
     }
 }
 
