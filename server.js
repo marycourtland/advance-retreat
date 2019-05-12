@@ -22,8 +22,9 @@ const listener = server.listen(process.env.PORT, function() {
 
 io.on('connection', function (socket) {
   
-  socket.on('view:show-me-the-map', (d) => {
+  socket.on('view:show-me-the-map', (data, callback) => {
     socket.join("map-view")
+    callback(null, items)
   })
   
   socket.on('game:join', (data, callback) => {
@@ -80,7 +81,7 @@ const energyActions = require('./energy-actions')
 
 // meh
 const playersById = {}
-const items = []
+const itemsById = {}
 
 
 function addPlayer(id) {
@@ -102,6 +103,7 @@ function addPlayer(id) {
 function addPlant(coords) {
   console.log('planting', coords)
   const newPlant = {
+    id: 'plant-' + 
     type: 'plant',
     coords: coords
   }
@@ -109,3 +111,4 @@ function addPlant(coords) {
   io.in("map-view").emit("new:plant", newPlant) 
   
 }
+

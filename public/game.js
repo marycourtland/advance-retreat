@@ -24,8 +24,8 @@
     this.canvas = new fabric.Canvas(canvasId, {
       selection: false
     });
-    this.canvas.setWidth(size.x)
-    this.canvas.setHeight(size.y)
+    this.canvas.setWidth(gameSize.x)
+    this.canvas.setHeight(gameSize.y)
 
   }
   

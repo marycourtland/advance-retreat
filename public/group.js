@@ -15,7 +15,8 @@ window.onload = function() {
   setTimeout(function() {
     socket = io()
     socket.on("connect", () => {
-      socket.emit("view:show-me-the-map")
+      socket.emit("view:show-me-the-map", (items) => {
+      })
     })
     
     socket.on("new:plant", (plant) => {
@@ -23,6 +24,7 @@ window.onload = function() {
     })
     
     socket.on("new:player", (player) => {
+      console.log('got player', player)
       game.drawPlayer(player)
     })
   }, 1000)
