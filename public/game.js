@@ -84,7 +84,9 @@
       opacity: 0.8,
       selectable: false
     });
-    const scaleBase = 0.1
+    
+    var scaleBase = window.isGroup ? 0.1 : 0.03
+    
     const scaleFuzz = Math.random() * (scaleBase)
     plantImg.scale(scaleBase + (scaleFuzz - (scaleFuzz/2)))
     this.canvas.add(plantImg);

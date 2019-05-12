@@ -8,6 +8,8 @@ var game
 
 var playersById = {}
 
+window.isGroup = true
+
 window.onload = function() {
   game = new Game('game')
   game.shouldPlantOnMousemove()

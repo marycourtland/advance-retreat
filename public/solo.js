@@ -11,6 +11,8 @@ const soundFiles = {
 }
 const sounds = {} // will get populated
 
+window.isGroup = false
+
 ///
 
 var socket
@@ -91,12 +93,12 @@ function start() {
 //         game.refreshPlayer(playerObj, player)
 //       }
       
-      // me player
+      // this player
       var playerObj = 
       game.refreshPlayer(playerObj, player)
       
       player.object = playerObj
-      playersById[player.id] = playerObj
+      // playersById[player.id] = playerObj
     })
     })
   }, 1000)
@@ -104,6 +106,7 @@ function start() {
   // action buttons
   const actions = {
     'plant': () => player.plant(),
+    'turbine': () => player.buildTurbine(),
     'retreat': () => {
       player.modeRetreat()
       $.removeClass('retreat-overlay', 'hidden')
@@ -165,6 +168,13 @@ const player = {
     if (!coords) { return }
     game.plantOne(coords)
     socket.emit('action:plant', coords)
+  },
+  
+  buildTurbine: function(coords) {
+    coords = coords || this.coords
+    if (!coords) { return }
+    game.plantOne(coords)
+    socket.emit('action:turbine', coords)
   },
   
   modeAdvance: function() {

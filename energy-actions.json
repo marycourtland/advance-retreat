@@ -1,5 +1,6 @@
 {
   "plant": -5,
+  "turbine": -60,
   "recharge": 5,
-  "text": 50
+  "text": 60
 }
