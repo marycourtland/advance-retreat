@@ -22,7 +22,7 @@ const listener = server.listen(process.env.PORT, function() {
 
 io.on('connection', function (socket) {
   
-  socket.on('show-me-the-map', (d) => {
+  socket.on('view:show-me-the-map', (d) => {
     socket.join("map-view")
   })
   

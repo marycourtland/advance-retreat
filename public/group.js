@@ -15,7 +15,7 @@ window.onload = function() {
   setTimeout(function() {
     socket = io()
     socket.on("connect", () => {
-      socket.emit("show-me-the-map")
+      socket.emit("view:show-me-the-map")
     })
     
     socket.on("new:plant", (plant) => {
