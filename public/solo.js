@@ -32,9 +32,11 @@ function start() {
   const actions = {
     'plant': () => player.plant(),
     'retreat': () => {
+      player.modeAdvance()
       utils.removeClass('retreat-overlay', 'hidden')
     },
     'return': () => {
+      player.modeRetreat()
       utils.addClass('retreat-overlay', 'hidden')
     }
   }
@@ -50,6 +52,7 @@ function start() {
 const player = {
   id: null,
   coords: {x: 0, y: 0},
+  mode: 'advance',
   
   init: function() {
     socket.emit('game:join', {}, (error, playerData) => {
@@ -62,6 +65,16 @@ const player = {
     if (!coords) { return }
     game.plantOne(coords)
     socket.emit('action:plant', coords)
+  },
+  
+  modeAdvance: function() {
+    if (this.mode === 'advance') { return }
+    this.mode = 'advance'
+  },
+  
+  modeRetreat: function() {
+    if (this.mode === 'retreat') { return }
+    this.mode = 'retreat'
   }
 }
 
