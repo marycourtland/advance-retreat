@@ -39,7 +39,7 @@ io.on('connection', function (socket) {
       player = addPlayer(data.id)
     }
     
-    console.log('player connected', socket.id, player.id, `-> ${Object.keys(playersById).length} players`)
+    console.log('player connected', socket.id, player.color, player.id, `-> ${Object.keys(playersById).length} players`)
     socket.playerId = player.id
     callback(null, player)
   });

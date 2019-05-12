@@ -86,7 +86,10 @@
   
   Game.prototype.drawPlayer = function(player) {
     const coords = player.coords
-    const color = Array.isArray(player.color) ? `hsl(${player.color[0]}, ${player.color[1]}, ${player.color[2]})` : player.color
+    const color = Array.isArray(player.color) ?
+      // new fabric.Color.fromHsl(`hsl(${player.color[0]}, ${player.color[1]}%, ${player.color[2]}%)`)
+      `hsl(${player.color[0]}, ${player.color[1]}%, ${player.color[2]}%)`
+      : player.color
     const face = new fabric.Circle({
       originX: 'center',
       originY: 'center',
