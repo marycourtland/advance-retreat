@@ -8,10 +8,12 @@ const soundFiles = {
 const sounds = {}
 
 const AudioContext = window.AudioContext || window.webkitAudioContext;
+const context = new AudioContext(); 
 
 // hack to get ios webaudio to work
 var unlockAudio = (context.state === 'suspended' && 'ontouchstart' in window) ? function() {
   context.resume()
+  Pizzicato.context.resume()
 } : function() {}
 
 ///
@@ -32,9 +34,6 @@ window.onload = function() {
   const intro = document.getElementById("intro")
   intro.onclick = function() {
     // get ios to load webaudio
-    if (context.state === 'suspended' && 'ontouchstart' in window) {
-        context.resume();
-    }
     unlockAudio();
     silence.play()
     
