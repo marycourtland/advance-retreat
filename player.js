@@ -1,7 +1,7 @@
 const utils = require('./utils')
-const 
+// const 
                       
-module.exports = function Player(id, coords) {
+function Player(id, coords) {
   this.id = id
   this.coords = coords
   this.active = true
@@ -26,3 +26,5 @@ Player.prototype.updateEnergy = function(dE) {
   this.energy += dE
   
 }
+
+module.exports = Player

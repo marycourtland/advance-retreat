@@ -48,7 +48,7 @@ io.on('connection', function (socket) {
     var player = playersById[socket.playerId]
     if (player) {
       addPlant(coords)
-      player.updateEnergy(
+      player.updateEnergy()
     }
     
   });
