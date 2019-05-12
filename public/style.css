@@ -35,6 +35,10 @@ body {
     background-color: #d3d3d3;
   }
 
+  .solo #game {
+    width: 100vw;
+  }
+
   #boundary {
     width: 800px;
     height: 524px;
@@ -140,7 +144,8 @@ body {
 }
 
 #intro {
-  background: white;
+  background: #d3d3d3;
+  color: #062706;
   opacity: 1;
 }
 
