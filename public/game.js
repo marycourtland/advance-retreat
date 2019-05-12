@@ -110,7 +110,7 @@
     const eyeSep = 5
     const pupilOffset = {x: 1, y: 1}
     
-    const eyelidDrop = 0.5
+    const eyelidDrop = Math.cos(1 - 0)
     
     const eye1 = new fabric.Circle({
       originX: 'center',
@@ -147,15 +147,15 @@
       selectable: false
     })
     
-    const eyelidAngleStart = Math.PI - (Math.PI/) * eyelidDrop
-    const eyelidAngleEnd = 0 + (3) * eyelidDrop
+    const eyelidAngleStart = 3*Math.PI/2 - (1.2 * Math.PI/2) * eyelidDrop
+    const eyelidAngleEnd = 3*Math.PI/2 + (1.2 * Math.PI/2) * eyelidDrop
     
     const eyelid1 = new fabric.Circle({
       originX: 'center',
       originY: 'center',
       left: -eyeSep,
       fill: 'gray',
-      radius: 4,
+      radius: 4.01,
       startAngle: eyelidAngleStart,
       endAngle: eyelidAngleEnd,
       selectable: false
@@ -165,7 +165,7 @@
       originY: 'center',
       left: eyeSep,
       fill: 'gray',
-      radius: 4,
+      radius: 4.01,
       startAngle: eyelidAngleStart,
       endAngle: eyelidAngleEnd,
       selectable: false
