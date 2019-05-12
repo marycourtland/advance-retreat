@@ -27,13 +27,21 @@ io.on('connection', function (socket) {
   })
   
   socket.on('game:join', (data, callback) => {
-    if (data.id && data.id in playersById) {
-      return callback(null, playersById[data.id])
+    data = data || {}
+    
+    // revive old players if they exist
+    var player = playersById[data.id]
+    if (player) {
+      player.active = true
+      socket.playerId = player.id
+    }
+    else {
+      player = addPlayer(data.id)
     }
     
-    console.log('new player', socket.id, data)
-    const newPlayer = addPlayer(data.id)
-    callback(null, newPlayer)
+    console.log('player connected', socket.id, player.id, `-> ${Object.keys(playersById).length} players`)
+    socket.playerId = player.id
+    callback(null, player)
   });
   
   socket.on('action:plant', (coords) => {
@@ -42,6 +50,13 @@ io.on('connection', function (socket) {
   });
   
   socket.on('disconnect', () => {
+    const player = playersById[socket.playerId]
+    if (player) {
+      console.log('player inactive:', player.id)
+      player.active = false
+    }
+    
+    // TODO: clean up players which have been inactive after a while
   });
 });
 
