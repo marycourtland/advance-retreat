@@ -84,11 +84,13 @@
     this.canvas.add(img);
   }
   
-  Game.prototype.drawPlayer = function(coords) {
+  Game.prototype.drawPlayer = function(player) {
+    const coords = player.coords
+    const color = Array.isArray(player.color) ? `hsl(${player.color[0]}, ${player.color[1]}, ${player.color[2]})` : player.color
     const face = new fabric.Circle({
       originX: 'center',
       originY: 'center',
-      fill: 'blue',
+      fill: color || 'blue',
       radius: faceSize,
       selectable: false
     });

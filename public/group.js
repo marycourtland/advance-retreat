@@ -10,7 +10,7 @@ window.onload = function() {
   game = new Game('game')
   game.shouldPlantOnMousemove()
   
-  game.drawPlayer({x: 100, y: 100})
+  game.drawPlayer({coords: {x: 100, y: 100}})
 
   setTimeout(function() {
     socket = io()
@@ -23,7 +23,7 @@ window.onload = function() {
     })
     
     socket.on("new:player", (player) => {
-      game.drawPlayer(player.coords)
+      game.drawPlayer(player)
     })
   }, 1000)
   
