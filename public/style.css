@@ -34,11 +34,6 @@ body {
     left: 0;
     background-color: #d3d3d3;
   }
-
-  .solo #game {
-    width: 100vw;
-  }
-
   #boundary {
     width: 800px;
     height: 524px;
@@ -47,6 +42,18 @@ body {
     left: 0;
     pointer-events: none;
   }
+
+
+.solo .canvas-container {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 40px;
+}
+
+.solo #game {
+  background-color: transparent;
+}
+
 
 #actions {
   pointer-events: none;
