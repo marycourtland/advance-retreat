@@ -49,7 +49,10 @@ function loadSounds(done) {
 
 function start() {
   socket = io()
-  game = new Game('game')
+  game = new Game('game', {
+    x: window.innerWidth,
+    y: window.innerHeight
+  })
   game.shouldPlantOneOnMousemove()
   // player.init()
   

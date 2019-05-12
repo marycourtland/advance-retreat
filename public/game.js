@@ -5,7 +5,7 @@
 (function() {
 
 
-  const gameSize = {x: 800, y: 524}
+  var gameSize = {x: 800, y: 524}
 
   const paintRadius = 30 // region in which to paint
   const paintStrength = 2
@@ -17,10 +17,15 @@
   const buttonRadius = 50
 
 
-  const Game = function(canvasId) {
+  const Game = function(canvasId, size) {
+    if (size) {
+      gameSize = size
+    }
     this.canvas = new fabric.Canvas(canvasId, {
       selection: false
     });
+    this.canvas.setWidth(size.x)
+    this.canvas.setHeight(size.y)
 
   }
   
