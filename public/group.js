@@ -52,7 +52,7 @@ window.onload = function() {
       }
       
       player.object = playerObj
-      playersById[player.id] = playerobj
+      playersById[player.id] = playerObj
     })
   }, 1000)
   

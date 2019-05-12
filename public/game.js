@@ -101,7 +101,7 @@
     
     // blah
     const eyelidColor = Array.isArray(player.color) ?
-      `hsl(${player.color[0]}, 60%, 30%)`
+      `hsl(${player.color[0]}, 60%, 20%)`
       : "gray"
     
     const face = new fabric.Circle({

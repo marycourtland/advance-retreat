@@ -71,6 +71,33 @@ function start() {
     socket = io()
     socket.on("connect", function() {
       player.init()
+      
+      
+    socket.on("player:refresh", (thePlayer) => {
+      if (thePlayer.id !== player.id) { return }
+      console.log('REFRESHING PLAYER', player.id, player.energy)
+      
+      
+      // stuff for other players
+//       var playerObj = null
+//       if (player.id in playersById) {
+//         playerObj = playersById[player.id].object
+//       }
+      
+//       if (!playerObj) {
+//         playerObj = game.drawPlayer(player)
+//       }
+//       else {
+//         game.refreshPlayer(playerObj, player)
+//       }
+      
+      // me player
+      var playerObj = 
+      game.refreshPlayer(playerObj, player)
+      
+      player.object = playerObj
+      playersById[player.id] = playerObj
+    })
     })
   }, 1000)
   

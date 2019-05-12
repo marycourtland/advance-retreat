@@ -22,12 +22,15 @@ Player.prototype.emit = function(evt, data) {
 }
 
 Player.prototype.updateEnergy = function(dE) {
+  var originalEnergy = this.energy
   this.energy += dE
   this.energy = Math.min(this.energy, 100)
   this.energy = Math.max(this.energy, 0)
   
-  console.log('SENDING PLAYER REFRESH', this.id, this.energy)
-  this.emit('player:refresh', this)
+  if (originalEnergy !== this.energy) {
+    console.log('SENDING PLAYER REFRESH', this.id, this.energy)
+    this.emit('player:refresh', this)
+  }
   
 }
 
