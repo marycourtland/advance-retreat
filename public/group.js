@@ -14,7 +14,6 @@ window.onload = function() {
     socket = io()
     socket.on("connect", () => {
       socket.emit("view:show-me-the-map", {}, (error, stuff) => {
-        console.log(stuff)
         for (var playerId in stuff.players) {
           game.drawPlayer(stuff.players[playerId])
         }
@@ -32,7 +31,6 @@ window.onload = function() {
     })
     
     socket.on("player:new", (player) => {
-      console.log('got player', player)
       game.drawPlayer(player)
     })
   }, 1000)

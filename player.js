@@ -1,5 +1,7 @@
 const utils = require('./utils')
 const energyActions = require('./energy-actions')
+
+// TODO: maybe putting an emitter on here would be nice
                       
 function Player(id, coords) {
   this.id = id
@@ -14,12 +16,9 @@ function Player(id, coords) {
 Player.prototype = {}
 
 Player.prototype.emit = function(evt, data) {
-  if (!this.socket) { return }
-  this.socket.emit(evt, data)
-}
-
-Player.prototype.setSocket = function(socket) {
-  this.socket = socket
+  // blah
+  if (!global.io) { return }
+  global.io.in('map-view').emit(evt, data)
 }
 
 Player.prototype.updateEnergy = function(dE) {

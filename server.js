@@ -20,6 +20,9 @@ const listener = server.listen(process.env.PORT, function() {
   console.log('Your app is listening on port ' + listener.address().port);
 });
 
+// blah
+global.io = io
+
 io.on('connection', function (socket) {
   
   socket.on('view:show-me-the-map', (data, callback) => {
@@ -43,6 +46,8 @@ io.on('connection', function (socket) {
     else {
       player = addPlayer(data.id)
     }
+    
+    // player.setSocket(socket, io);
     
     console.log('player connected', socket.id, player.color, player.id, `-> ${Object.keys(playersById).length} players`)
     socket.playerId = player.id
