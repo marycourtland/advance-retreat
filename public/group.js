@@ -9,13 +9,21 @@ var game
 window.onload = function() {
   game = new Game('game')
   game.shouldPlantOnMousemove()
-  
-  game.drawPlayer({coords: {x: 100, y: 100}})
 
   setTimeout(function() {
     socket = io()
     socket.on("connect", () => {
-      socket.emit("view:show-me-the-map", (items) => {
+      socket.emit("view:show-me-the-map", {}, (error, stuff) => {
+        console.log(stuff)
+        for (var playerId in stuff.players) {
+          game.drawPlayer(stuff.players[playerId])
+        }
+        for (var itemId in stuff.items) {
+          var item = stuff.items[itemId]
+          if (item.type === 'plant') {
+            game.plantOne(item.coords)
+          }
+        }
       })
     })
     

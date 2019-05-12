@@ -28,3 +28,8 @@ utils.randInt = function(a, b) {
   } 
   return a + Math.floor(Math.random() * (b - a))
 }
+
+
+utils.getId = function(prefix) {
+  return `${prefix}${new Date().valueOf() - 1557600000000}`
+}

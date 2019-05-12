@@ -24,7 +24,11 @@ io.on('connection', function (socket) {
   
   socket.on('view:show-me-the-map', (data, callback) => {
     socket.join("map-view")
-    callback(null, items)
+    console.log(callback)
+    
+    if (typeof callback === 'function') {
+      callback(null, {players: playersById, items: itemsById})
+    }
   })
   
   socket.on('game:join', (data, callback) => {
@@ -76,6 +80,7 @@ const gameSize = {
 }
 
 const Player = require('./player')
+const Plant = require('./plant')
 const utils = require('./utils')
 const energyActions = require('./energy-actions')
 
@@ -86,7 +91,7 @@ const itemsById = {}
 
 function addPlayer(id) {
   const player = new Player(
-    `player${new Date().valueOf() - 1557600000000}`, // id
+    utils.getId('player'),
     utils.randCoords(gameSize)
   )
   
@@ -102,12 +107,11 @@ function addPlayer(id) {
 
 function addPlant(coords) {
   console.log('planting', coords)
-  const newPlant = {
-    id: 'plant-' + 
-    type: 'plant',
-    coords: coords
-  }
-  items.push(newPlant)
+  const newPlant = new Plant(
+    utils.getId('plant'),
+    coords
+  )
+  itemsById[newPlant.id] = newPlant
   io.in("map-view").emit("new:plant", newPlant) 
   
 }

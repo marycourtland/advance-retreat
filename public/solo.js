@@ -105,7 +105,7 @@ const player = {
     socket.emit('game:join', {id: this.id}, (error, playerData) => {
       this.id = playerData.id
       this.coords = playerData.coords
-      socket.emit('view:show-me-the-map')
+      socket.emit('view:show-me-the-map', {})
       
       // fabricjs is weird so set zoom first
       const zoom = 3
