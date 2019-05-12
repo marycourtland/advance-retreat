@@ -7,17 +7,42 @@ const soundFiles = {
 }
 const sounds = {}
 
+const AudioContext = window.AudioContext || window.webkitAudioContext;
+
+// hack to get ios webaudio to work
+var unlockAudio = (context.state === 'suspended' && 'ontouchstart' in window) ? function() {
+  context.resume()
+} : function() {}
+
+///
 
 var socket
 var game
 
+
+var silence = new Pizzicato.Sound(function(e) {
+  var output = e.outputBuffer.getChannelData(0);
+  for (var i = 0; i < e.outputBuffer.length; i++) {
+      output[i] = Math.random()
+  }
+});
+
+
 window.onload = function() {
   const intro = document.getElementById("intro")
   intro.onclick = function() {
-  loadSounds(() => {
-    utils.addClass('intro', 'hidden')
-    start()
-  })
+    // get ios to load webaudio
+    if (context.state === 'suspended' && 'ontouchstart' in window) {
+        context.resume();
+    }
+    unlockAudio();
+    silence.play()
+    
+    
+    loadSounds(() => {
+      utils.addClass('intro', 'hidden')
+      start()
+    })
   }
 }
 
