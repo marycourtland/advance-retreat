@@ -14,18 +14,25 @@ var game
 window.onload = function() {
   const intro = document.getElementById("intro")
   intro.onclick = function() {
+  loadSounds(() => {
     utils.addClass('intro', 'hidden')
+    start()
+  })
   }
-  start()
 }
 
-function loadSounds() {
+function loadSounds(done) {
   for (var sound in soundFiles) {
     sounds[sound] = new Pizzicato.Sound({ 
       source: 'file',
-      options: { path: ' }
+      options: {
+        path: soundFiles[sound],
+        loop: true,
+        attack: 1,
+        release: 1
+      }
     }, function() {
-        birdsong.play()
+      done()
     });
   }
 }
@@ -58,11 +65,11 @@ function start() {
   const actions = {
     'plant': () => player.plant(),
     'retreat': () => {
-      player.modeAdvance()
+      player.modeRetreat()
       utils.removeClass('retreat-overlay', 'hidden')
     },
     'return': () => {
-      player.modeRetreat()
+      player.modeAdvance()
       utils.addClass('retreat-overlay', 'hidden')
     }
   }
@@ -96,11 +103,15 @@ const player = {
   modeAdvance: function() {
     if (this.mode === 'advance') { return }
     this.mode = 'advance'
+    
+    sounds.birdsong.pause()
   },
   
   modeRetreat: function() {
     if (this.mode === 'retreat') { return }
     this.mode = 'retreat'
+    
+    sounds.birdsong.play()
   }
 }
 
