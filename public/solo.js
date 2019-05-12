@@ -29,8 +29,15 @@ function start() {
   }, 1000)
   
   // action buttons
-  document.getElementById('action-plant').onclick = function() {
-    player.plant()
+  const actions = {
+    'plant': () => player.plant(),
+    'retreat': () => {
+    }
+    
+  }
+  
+  for (var a in actions) {
+    document.getElementById(`action-${a}`).onclick = actions[a]
   }
 }
 
