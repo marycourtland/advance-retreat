@@ -16,32 +16,13 @@ const sounds = {} // will get populated
 var socket
 var game
 
+// hack to get audio to work
 window.addEventListener("touchstart", window.unlock);
-
-
-var silence = new Pizzicato.Sound(function(e) {
-  var output = e.outputBuffer.getChannelData(0);
-  for (var i = 0; i < e.outputBuffer.length; i++) {
-      output[i] = Math.random()
-  }
-});
-
 
 window.onload = function() {
   const intro = document.getElementById("intro")
   intro.onclick = function() {
-    // get ios to load webaudio
-//     let context = Pizzicato.context
-//     let source = context.createBufferSource()
-//     source.buffer = context.createBuffer(1, 1, 22050)
-//     source.connect(context.destination)
-//     source.start()
-    
-    
-    // unlockAudio();
-    // silence.play()
-    
-    
+    // not sure if this would be OK outside of the user onclick. TODO: try that
     loadSounds(() => {
       $.addClass('intro', 'hidden')
       start()
