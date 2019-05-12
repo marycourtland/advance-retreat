@@ -1,7 +1,11 @@
 // PROTOTYPE!!!!
 
-/* global io, fabric, utils, Game */
+/* global utils, io, fabric, Pizzicato, Game */
 
+const soundFiles = {
+  birdsong: 'https://cdn.glitch.com/46e2e6a3-673c-4740-9ce0-0ab28c854d9d%2Fbirdsong.mp3?1557628239205',
+}
+const sounds = {}
 
 
 var socket
@@ -15,11 +19,33 @@ window.onload = function() {
   start()
 }
 
+function loadSounds() {
+  for (var sound in soundFiles) {
+    sounds[sound] = new Pizzicato.Sound({ 
+      source: 'file',
+      options: { path: ' }
+    }, function() {
+        birdsong.play()
+    });
+  }
+}
+
 function start() {
   socket = io()
   game = new Game('game')
   game.shouldPlantOneOnMousemove()
   player.init()
+  
+  
+  
+  var sawtoothWave = new Pizzicato.Sound({ 
+      source: 'wave',
+      options: {
+          type: 'sawtooth'
+      }
+  });
+  var delay = new Pizzicato.Effects.Delay();
+  sawtoothWave.addEffect(delay);
   
   setTimeout(function() {
     socket = io()
