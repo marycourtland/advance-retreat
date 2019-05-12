@@ -3,6 +3,9 @@
 /* global utils, io, fabric, Pizzicato, Game */
 /* global addCoords, randCoords */
 
+// meh
+const plantRadius = 40
+
 const soundFiles = {
   birdsong: 'https://cdn.glitch.com/46e2e6a3-673c-4740-9ce0-0ab28c854d9d%2Fbirdsong.mp3?1557628239205',
 }
@@ -121,8 +124,8 @@ const player = {
 
   plant: function(coords) {
     coords = coords || randCoords(
-      addCoords(coords, {x: -paintRadius, y: -paintRadius}),
-      addCoords(coords, {x: paintRadius, y: paintRadius})
+      addCoords(this.coords, {x: -plantRadius, y: -plantRadius}),
+      addCoords(this.coords, {x: plantRadius, y: plantRadius})
     )
     if (!coords) { return }
     game.plantOne(coords)

@@ -45,7 +45,11 @@ io.on('connection', function (socket) {
   });
   
   socket.on('action:plant', (coords) => {
-    addPlant(coords)
+    var player = playersById[socket.playerId]
+    if (player) {
+      addPlant(coords)
+      player.updateEnergy(
+    }
     
   });
   
@@ -62,7 +66,8 @@ io.on('connection', function (socket) {
 
 
 
-//// THE GAME
+// *** THE GAME ***
+// TODO: clean up
 
 const gameSize = {
   x: 800,
@@ -71,10 +76,10 @@ const gameSize = {
 
 const Player = require('./player')
 const utils = require('./utils')
+const energyActions = require('./energy-actions')
 
 // meh
 const playersById = {}
-
 const items = []
 
 
