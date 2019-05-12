@@ -16,6 +16,10 @@ app.get('/game', function(request, response) {
   response.sendFile(__dirname + '/views/group.html');
 });
 
+app.get('/credits', function(request, response) {
+  response.sendFile(__dirname + '/views/credits.html');
+});
+
 const listener = server.listen(process.env.PORT, function() {
   console.log('Your app is listening on port ' + listener.address().port);
 });

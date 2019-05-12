@@ -134,6 +134,9 @@ const player = {
   energy: 100, // energy level 0 to 100
   object: null,
   
+  // meh
+  rechargeInterval: null,
+  
   init: function() {
     socket.emit('game:join', {id: this.id}, (error, playerData) => {
       this.id = playerData.id
@@ -193,7 +196,7 @@ const player = {
     if (this.mode === 'retreat') { return }
     this.mode = 'retreat';
     
-    setInterval(function() {
+    this.rechargeInterval = setInterval(function() {
       player.recharge()
     }, 2000)
     
