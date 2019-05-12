@@ -1,13 +1,13 @@
 const utils = require('./utils')
-// const 
+
                       
-function Plant(id, coords) {
+function Item(type, id, coords) {
   this.id = id
-  this.type = 'plant'
+  this.type = type
   this.coords = coords
   this.active = true
 }
 
-Plant.prototype = {}
+Item.prototype = {}
 
-module.exports = Plant
+module.exports = Item

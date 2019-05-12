@@ -82,6 +82,8 @@
     const turbineImg = new fabric.Image(document.getElementById('turbine'), {
       left: coords.x,
       top: coords.y,
+      originX: 0.1,
+      originY: 0.1,
       opacity: 0.8,
       selectable: false
     });

@@ -64,6 +64,16 @@ io.on('connection', function (socket) {
     
   });
   
+  socket.on('action:turbine', (coords) => {
+    var player = playersById[socket.playerId]
+    if (player) {
+      addTurbine(coords)
+      console.log('GOING TO UPDATE ENERGY', player.id, energyActions.turbine)
+      player.updateEnergy(energyActions.turbine)
+    }
+    
+  });
+  
   socket.on('disconnect', () => {
     const player = playersById[socket.playerId]
     if (player) {
@@ -86,7 +96,7 @@ const gameSize = {
 }
 
 const Player = require('./player')
-const Plant = require('./plant')
+const Item = require('./item')
 const utils = require('./utils')
 const energyActions = require('./energy-actions')
 
@@ -113,12 +123,24 @@ function addPlayer(id) {
 
 function addPlant(coords) {
   console.log('planting', coords)
-  const newPlant = new Plant(
+  const newPlant = new Item(
+    'plant',
     utils.getId('plant'),
     coords
   )
   itemsById[newPlant.id] = newPlant
   io.in("map-view").emit("plant:new", newPlant) 
-  
+}
+
+
+function addTurbine(coords) {
+  console.log('building turbine', coords)
+  const newTurbine = new Item(
+    'turbine',
+    utils.getId('turbine'),
+    coords
+  )
+  itemsById[newPlant.id] = newPlant
+  io.in("map-view").emit("plant:new", newPlant) 
 }
 

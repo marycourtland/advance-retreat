@@ -69,18 +69,18 @@ body {
     color: #cde2f2;
     opacity: 0.9;
     user-select: none;
-    font-size: 16pt;
+    font-size: 12pt;
     
     position: fixed;
     bottom: 20vh;
     left: 5vw;
     
-    width: 30vw;
+    width: 40vw;
     height: 0px;
     border-radius: 15vw;
     text-align: center;
-    padding-top: 40px;
-    padding-bottom: 40px;
+    padding-top: 30px;
+    padding-bottom: 30px;
     line-height: 0;
     
 /*     max-width: 200px; */
