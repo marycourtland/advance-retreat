@@ -6,6 +6,8 @@
 var socket
 var game
 
+var playersById = {}
+
 window.onload = function() {
   game = new Game('game')
   game.shouldPlantOnMousemove()
@@ -31,7 +33,20 @@ window.onload = function() {
     })
     
     socket.on("player:new", (player) => {
+      playersById[player.id] = player
       game.drawPlayer(player)
+    })
+    
+    socket.on("player:refresh", (player) => {
+      var playerObj = null
+      if (player.id in playersById) {
+        playerObj = playersById[player.id].object
+      }
+      if (!playerObj) {
+        playerObj = game.drawPlayer(player)
+      }
+      
+      playerObj
     })
   }, 1000)
   

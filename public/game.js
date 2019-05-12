@@ -84,7 +84,7 @@
       opacity: 0.8,
       selectable: false
     });
-    const scaleBase = 0.1
+    const scaleBase = 1
     const scaleFuzz = Math.random() * (scaleBase)
     plantImg.scale(scaleBase + (scaleFuzz - (scaleFuzz/2)))
     this.canvas.add(plantImg);
@@ -145,13 +145,48 @@
       selectable: false
     })
     
-    var player = new fabric.Group([face, eye1, pupil1, eye2, pupil2], {
+    const eyelid1 = new fabric.Circle({
+      originX: 'center',
+      originY: 'center',
+      left: eyeSep + pupilOffset.x,
+      top: pupilOffset.y,
+      fill: 'gray',
+      radius: 2,
+      selectable: false
+    })
+    const eyelid2 = new fabric.Circle({
+      originX: 'center',
+      originY: 'center',
+      left: eyeSep + pupilOffset.x,
+      top: pupilOffset.y,
+      fill: 'gray',
+      radius: 2,
+      selectable: false
+    })
+    
+    var playerObj = new fabric.Group([face, eye1, pupil1, eye2, pupil2], {
       left: coords.x,
       top: coords.y,
-    });
-    this.canvas.add(player);
+    })
     
-    return player
+    // blah... want to access these later
+    playerObj.face = face
+    playerObj.eye1 = eye1
+    playerObj.eye2 = eye2
+    playerObj.pupil1 = pupil1
+    playerObj.pupil2 = pupil2
+    
+    this.canvas.add(playerObj)
+    
+    player.object = playerObj // blah
+    
+    return playerObj
+  }
+  
+  
+  // blah
+  Game.prototype.refreshPlayer = function(playerObj, player) {
+    
   }
   
   

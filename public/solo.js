@@ -102,6 +102,7 @@ const player = {
   color: 'blue',
   mode: 'advance',
   energy: 100,
+  object: null,
   
   init: function() {
     socket.emit('game:join', {id: this.id}, (error, playerData) => {
