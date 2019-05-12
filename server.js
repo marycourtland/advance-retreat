@@ -76,7 +76,15 @@ io.on('connection', function (socket) {
       console.log('GOING TO UPDATE ENERGY', player.id, energyActions.turbine)
       player.updateEnergy(energyActions.turbine)
     }
-    
+  });
+  
+  socket.on('action:recharge', (coords) => {
+    var player = playersById[socket.playerId]
+    if (player) {
+      addTurbine(coords)
+      console.log('GOING TO UPDATE ENERGY', player.id, energyActions.turbine)
+      player.updateEnergy(energyActions.turbine)
+    }
   });
   
   socket.on('disconnect', () => {
