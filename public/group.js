@@ -9,6 +9,8 @@ var game
 window.onload = function() {
   game = new Game('game')
   game.shouldPlantOnMousemove()
+  
+  game.drawPlayer({x: 100, y: 100})
 
   setTimeout(function() {
     socket = io()

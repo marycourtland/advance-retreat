@@ -11,7 +11,7 @@
   const paintStrength = 2
   const paintRate = 5 // paints per second
   const dotSize = 2 // size of each dot
-  const faceSize = 20 // size of each dot
+  const faceSize = 15
   
   // for mobile client
   const buttonRadius = 50
@@ -86,14 +86,34 @@
   
   Game.prototype.drawPlayer = function(coords) {
     const face = new fabric.Circle({
-      left: coords.x,
-      top: coords.y,
+      originX: 'center',
+      originY: 'center',
       fill: 'blue',
-      strokeWidth: 2,
       radius: faceSize,
       selectable: false
     });
-    this.canvas.add(face);
+    const eye1 = new fabric.Group([
+      new fabric.Circle({
+        originX: 'center',
+        originY: 'center',
+        fill: 'white',
+        radius: 4,
+        selectable: false
+      }),
+      new fabric.Circle({
+        originX: 1,
+        originY: 'center',
+        fill: 'black',
+        radius: 2,
+        selectable: false
+      })
+    ], {originX: 'center', originY: 'center'})
+    
+    var player = new fabric.Group([face, eye1], {
+      left: coords.x,
+      top: coords.y,
+    });
+    this.canvas.add(player);
   }
   
   
