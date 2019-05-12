@@ -55,7 +55,7 @@ function start() {
     x: window.innerWidth,
     y: window.innerHeight
   })
-  game.shouldPlantOneOnMousemove()
+  // game.shouldPlantOneOnMousemove()
   // player.init()
   
   
@@ -159,6 +159,11 @@ const player = {
       ))
     })
   },
+  
+  recharge: function() {
+    // yay
+    socket.emit('action:recharge')
+  },
 
   plant: function(coords) {
     coords = coords || randCoords(
@@ -186,7 +191,11 @@ const player = {
   
   modeRetreat: function() {
     if (this.mode === 'retreat') { return }
-    this.mode = 'retreat'
+    this.mode = 'retreat';
+    
+    setInterval(function() {
+      player.recharge()
+    }, 2000)
     
     sounds.birdsong.play()
   }

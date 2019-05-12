@@ -209,6 +209,7 @@
     ], {
       left: coords.x,
       top: coords.y,
+      selectable: false
     })
     
     // blah... want to access these later

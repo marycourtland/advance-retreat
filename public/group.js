@@ -12,7 +12,7 @@ window.isGroup = true
 
 window.onload = function() {
   game = new Game('game')
-  game.shouldPlantOnMousemove()
+  // game.shouldPlantOnMousemove()
 
   setTimeout(function() {
     socket = io()
@@ -25,6 +25,9 @@ window.onload = function() {
           var item = stuff.items[itemId]
           if (item.type === 'plant') {
             game.plantOne(item.coords)
+          }
+          if (item.type === 'turbine') {
+            game.drawTurbine(item.coords)
           }
         }
       })
