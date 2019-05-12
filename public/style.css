@@ -72,7 +72,8 @@ body {
     font-size: 16pt;
     
     position: fixed;
-    bottom: 10vh;
+    bottom: 20vh;
+    left: 5vw;
     
     width: 30vw;
     height: 0px;
@@ -82,7 +83,7 @@ body {
     padding-bottom: 40px;
     line-height: 0;
     
-    max-width: 200px;
+/*     max-width: 200px; */
   }
 
   .action:after {
@@ -96,7 +97,8 @@ body {
   /*********/
 
   #action-plant {
-    right: 5vh;
+/*     right: 5vh; */
+    bottom: 31vh;
   }
 
   #action-plant:after {
@@ -106,8 +108,21 @@ body {
 
   /*********/
 
+  #action-turbine {
+/*     left: 5vw; */
+    bottom: 18vh;
+  }
+
+  #action-turbine:after {
+    content: "Build Turbine";
+  }
+
+  /*********/
+
   #action-retreat {
     left: 5vw;
+    bottom: 5vh;
+    
   }
 
   #action-retreat:after {
@@ -118,6 +133,7 @@ body {
 
   #action-return {
     left: 35vw;
+    bottom: 5vh;
     background-color: #09295a;
   }
 

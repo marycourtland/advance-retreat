@@ -173,7 +173,7 @@ const player = {
   buildTurbine: function(coords) {
     coords = coords || this.coords
     if (!coords) { return }
-    game.plantOne(coords)
+    game.drawTurbine(coords)
     socket.emit('action:turbine', coords)
   },
   

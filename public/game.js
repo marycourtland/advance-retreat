@@ -62,6 +62,7 @@
       ))
     }
   }
+  
 
   Game.prototype.drawDot = function(coords) {
     const dot = new fabric.Circle({
@@ -77,6 +78,25 @@
   }
   
 
+  Game.prototype.drawTurbine = function(coords) {
+    const turbineImg = new fabric.Image(document.getElementById('turbine'), {
+      left: coords.x,
+      top: coords.y,
+      opacity: 0.8,
+      selectable: false
+    });
+    
+    var scaleBase = window.isGroup ? 0.5 : 0.1
+    
+    const scaleFuzz = 0
+    turbineImg.scale(scaleBase + (scaleFuzz - (scaleFuzz/2)))
+    this.canvas.add(turbineImg);
+    
+    turbineImg.sendToBack();
+    
+    return turbineImg
+  }
+  
   Game.prototype.drawPlant = function(coords) {
     const plantImg = new fabric.Image(document.getElementById('plant'), {
       left: coords.x,
@@ -90,6 +110,8 @@
     const scaleFuzz = Math.random() * (scaleBase)
     plantImg.scale(scaleBase + (scaleFuzz - (scaleFuzz/2)))
     this.canvas.add(plantImg);
+    
+    plantImg.sendToBack();
     
     return plantImg
   }
