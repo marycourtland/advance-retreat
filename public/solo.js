@@ -10,7 +10,7 @@ var game
 window.onload = function() {
   const intro = document.getElementById("intro")
   intro.onclick = function() {
-    intro.className = 'hidden'
+    utils.addClass('intro', 'hidden')
   }
   start()
 }
@@ -32,10 +32,10 @@ function start() {
   const actions = {
     'plant': () => player.plant(),
     'retreat': () => {
-      utils.show('retreat-overlay')
+      utils.removeClass('retreat-overlay', 'hidden')
     },
     'return': () => {
-      utils.hide('retreat-overlay')
+      utils.addClass('retreat-overlay', 'hidden')
     }
   }
   

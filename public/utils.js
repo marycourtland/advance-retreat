@@ -35,14 +35,30 @@ utils.randInt = function(a, b) {
 
 utils.show = function(id, display) {
   const element = document.getElementById(id);
-  if (element) {
-    element.style.display = display || 'block'
-  }
+  if (!element) { return }
+  element.style.display = display || 'block'
 }
 
 utils.hide = function(id) {
   const element = document.getElementById(id);
-  if (element) {
-    element.style.display = 'none'
-  }
+  if (!element) { return }
+  element.style.display = 'none'
+}
+
+utils.addClass = function(id, newClass) {
+  const element = document.getElementById(id);
+  if (!element) { return }
+  const classes = element.className.split(" ")
+  if (classes.indexOf(newClass) > -1) { return }
+  classes.push(newClass)
+  element.className = classes.join(" ")
+}
+
+utils.removeClass = function(id, oldClass) {
+  const element = document.getElementById(id);
+  if (!element) { return }
+  const classes = element.className.split(" ")
+  if (classes.indexOf(oldClass) === -1) { return }
+  classes.splice(classes.indexOf(oldClass), 1)
+  element.className = classes.join(" ")
 }
