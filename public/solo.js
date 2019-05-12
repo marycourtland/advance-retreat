@@ -1,6 +1,7 @@
 // PROTOTYPE!!!!
 
 /* global utils, io, fabric, Pizzicato, Game */
+/* global addCoords, randCoords */
 
 const soundFiles = {
   birdsong: 'https://cdn.glitch.com/46e2e6a3-673c-4740-9ce0-0ab28c854d9d%2Fbirdsong.mp3?1557628239205',
@@ -117,8 +118,12 @@ const player = {
       this.coords = playerData.coords
     })
   },
+
   plant: function(coords) {
-    coords = coords || this.coords
+    coords = coords || randCoords(
+      addCoords(coords, {x: -paintRadius, y: -paintRadius}),
+      addCoords(coords, {x: paintRadius, y: paintRadius})
+    )
     if (!coords) { return }
     game.plantOne(coords)
     socket.emit('action:plant', coords)
