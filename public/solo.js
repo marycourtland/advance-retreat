@@ -14,6 +14,7 @@ const context = new AudioContext();
 var unlockAudio = (context.state === 'suspended' && 'ontouchstart' in window) ? function() {
   context.resume()
   Pizzicato.context.resume()
+  
 } : function() {}
 
 ///
@@ -34,8 +35,15 @@ window.onload = function() {
   const intro = document.getElementById("intro")
   intro.onclick = function() {
     // get ios to load webaudio
+    let context = Pizzicato.context
+    let source = context.createBufferSource()
+    source.buffer = context.createBuffer(1, 1, 22050)
+    source.connect(context.destination)
+    source.start()
+    
+    
     unlockAudio();
-    silence.play()
+    // silence.play()
     
     
     loadSounds(() => {
