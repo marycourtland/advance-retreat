@@ -19,7 +19,6 @@
 
   const Game = function(canvasId) {
     this.canvas = new fabric.Canvas(canvasId, {
-      backgroundColor: 'lightgray',
       selection: false
     });
 

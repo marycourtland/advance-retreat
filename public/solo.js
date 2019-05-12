@@ -104,7 +104,7 @@ const player = {
       this.coords = playerData.coords
       
       var playerObj = game.drawPlayer(this, {x: 0, y: 0})
-      game.canvas.centerObject(playerObj)
+      game.canvas.zoomToPoint(playerObj.getCenterPoint())
     })
   },
 
