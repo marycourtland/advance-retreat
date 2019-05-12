@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.7.22/fabric.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
+    <script src="/utils.js" defer></script>
     <script src="/game.js" defer></script>
     <script src="/solo.js" defer></script>
     
@@ -24,6 +25,11 @@
       <div id="actions">
         <div class="action" id="action-plant"></div>
         <div class="action" id="action-retreat"></div>
+        <div style="display:none;" class="action" id="action-return"></div>
+      </div>
+      
+      <div id="retreat-overlay">
+        
       </div>
     </div>
     

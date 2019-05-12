@@ -51,7 +51,7 @@ const gameSize = {
 }
 
 const Player = require('./player')
-const utils = require('./utils')
+const utils = require('./public/utils')
 
 // meh
 const playersById = {}

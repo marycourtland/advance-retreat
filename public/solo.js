@@ -1,6 +1,6 @@
 // PROTOTYPE!!!!
 
-/* global io, fabric, Game */
+/* global io, fabric, utils, Game */
 
 
 
@@ -32,8 +32,11 @@ function start() {
   const actions = {
     'plant': () => player.plant(),
     'retreat': () => {
+      utils.show('retreat-overlay')
+    },
+    'return': () => {
+      utils.hide('retreat-overlay')
     }
-    
   }
   
   for (var a in actions) {

@@ -1,5 +1,8 @@
 const utils = {}
-module.exports = utils
+
+if (!window) {
+  module.exports = utils
+}
 
 utils.addCoords = function(coords1, coords2) {
   return {
@@ -28,3 +31,18 @@ utils.randInt = function(a, b) {
   return a + Math.floor(Math.random() * (b - a))
 }
 
+// html stuff
+
+utils.show = function(id, display) {
+  const element = document.getElementById(id);
+  if (element) {
+    element.style.display = display || 'block'
+  }
+}
+
+utils.hide = function(id) {
+  const element = document.getElementById(id);
+  if (element) {
+    element.style.display = 'none'
+  }
+}
