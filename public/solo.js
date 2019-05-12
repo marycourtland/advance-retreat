@@ -101,6 +101,7 @@ const player = {
   coords: {x: 0, y: 0},
   color: 'blue',
   mode: 'advance',
+  energy: 100,
   
   init: function() {
     socket.emit('game:join', {id: this.id}, (error, playerData) => {
@@ -121,7 +122,6 @@ const player = {
       const playerObj = game.drawPlayer(this)
       const playerCenter = playerObj.getCenterPoint()
       const canvasCenter = game.canvas.getVpCenter()
-      console.log(game.canvas.getVpCenter())
       game.canvas.relativePan(new fabric.Point(
         (canvasCenter.x - playerCenter.x)*zoom,
         (canvasCenter.y - centerOffset - playerCenter.y)*zoom

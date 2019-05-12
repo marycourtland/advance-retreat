@@ -1,5 +1,5 @@
 const utils = require('./utils')
-// const 
+const energyActions = require('./energy-actions')
                       
 function Player(id, coords) {
   this.id = id
@@ -24,6 +24,10 @@ Player.prototype.setSocket = function(socket) {
 
 Player.prototype.updateEnergy = function(dE) {
   this.energy += dE
+  this.energy = Math.min(this.energy, 100)
+  this.energy = Math.max(this.energy, 0)
+  
+  this.emit('player:refresh', this)
   
 }
 

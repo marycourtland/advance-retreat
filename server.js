@@ -53,7 +53,7 @@ io.on('connection', function (socket) {
     var player = playersById[socket.playerId]
     if (player) {
       addPlant(coords)
-      player.updateEnergy()
+      player.updateEnergy(energyActions.plant)
     }
     
   });
@@ -100,7 +100,7 @@ function addPlayer(id) {
   
   playersById[player.id] = player
   
-  io.in("map-view").emit("new:player", player) 
+  io.in("map-view").emit("player:new", player) 
   
   return player
 }
@@ -112,7 +112,7 @@ function addPlant(coords) {
     coords
   )
   itemsById[newPlant.id] = newPlant
-  io.in("map-view").emit("new:plant", newPlant) 
+  io.in("map-view").emit("plant:new", newPlant) 
   
 }
 

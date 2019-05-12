@@ -27,11 +27,11 @@ window.onload = function() {
       })
     })
     
-    socket.on("new:plant", (plant) => {
+    socket.on("plant:new", (plant) => {
       game.plantOne(plant.coords)
     })
     
-    socket.on("new:player", (player) => {
+    socket.on("player:new", (player) => {
       console.log('got player', player)
       game.drawPlayer(player)
     })
