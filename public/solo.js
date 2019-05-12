@@ -51,7 +51,7 @@ function start() {
   socket = io()
   game = new Game('game')
   game.shouldPlantOneOnMousemove()
-  player.init()
+  // player.init()
   
   
   
@@ -103,8 +103,23 @@ const player = {
       this.id = playerData.id
       this.coords = playerData.coords
       
-      var playerObj = game.drawPlayer(this, {x: 0, y: 0})
-      game.canvas.zoomToPoint(playerObj.getCenterPoint(), 2)
+      // fabricjs is weird so set zoom first
+      const zoom = 3
+      game.canvas.zoomToPoint(game.canvas.getVpCenter(), zoom)
+      
+      // center on player
+      // const playerCenter = playerObj.getCenterPoint()
+      const canvasCenter = game.canvas.getVpCenter()
+      console.log(game.canvas.getVpCenter())
+      game.canvas.relativePan(new fabric.Point(
+        (canvasCenter.x - player.coords.x)*3,
+        (canvasCenter.y - player.coords.y)*3
+      ))
+      console.log(game.canvas.getVpCenter())
+      game.canvas.zoomToPoint(game.canvas.getVpCenter(), 2)
+      
+      
+      const playerObj = game.drawPlayer(this)
     })
   },
 
