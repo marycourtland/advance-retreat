@@ -110,8 +110,6 @@
     const eyeSep = 5
     const pupilOffset = {x: 1, y: 1}
     
-    const eyelidDrop = Math.cos(1 - 0)
-    
     const eye1 = new fabric.Circle({
       originX: 'center',
       originY: 'center',
@@ -147,8 +145,7 @@
       selectable: false
     })
     
-    const eyelidAngleStart = 3*Math.PI/2 - (1.2 * Math.PI/2) * eyelidDrop
-    const eyelidAngleEnd = 3*Math.PI/2 + (1.2 * Math.PI/2) * eyelidDrop
+    const eyelidAngles = getEyelidAngles(player)
     
     const eyelid1 = new fabric.Circle({
       originX: 'center',
@@ -156,8 +153,8 @@
       left: -eyeSep,
       fill: 'gray',
       radius: 4.01,
-      startAngle: eyelidAngleStart,
-      endAngle: eyelidAngleEnd,
+      startAngle: eyelidAngles.start,
+      endAngle: eyelidAngles.end,
       selectable: false
     })
     const eyelid2 = new fabric.Circle({
@@ -166,8 +163,8 @@
       left: eyeSep,
       fill: 'gray',
       radius: 4.01,
-      startAngle: eyelidAngleStart,
-      endAngle: eyelidAngleEnd,
+      startAngle: eyelidAngles.start,
+      endAngle: eyelidAngles.end,
       selectable: false
     })
     
@@ -261,4 +258,16 @@ function randInt(a, b) {
     a = 0
   }
   return a + Math.floor(Math.random() * (b - a))
+}
+
+// blah
+
+
+// this returns the angles needed to render the eyelid
+function getEyelidAngles(player) {
+  const energyLevel = player.energy / 100
+  const eyelidLevel = Math.sin(Math.PI/2 * (1-energyLevel))
+  const eyelidAngleStart = 3*Math.PI/2 - (1.2 * Math.PI/2) * eyelidLevel
+  const eyelidAngleEnd = 3*Math.PI/2 + (1.2 * Math.PI/2) * eyelidLevel
+  return {start: eyelidAngleStart, end: eyelidAngleEnd}
 }
