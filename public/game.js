@@ -11,6 +11,7 @@
   const paintStrength = 2
   const paintRate = 5 // paints per second
   const dotSize = 2 // size of each dot
+  const faceSize = 20 // size of each dot
   
   // for mobile client
   const buttonRadius = 50
@@ -81,6 +82,18 @@
     const scaleFuzz = Math.random() * (scaleBase)
     img.scale(scaleBase + (scaleFuzz - (scaleFuzz/2)))
     this.canvas.add(img);
+  }
+  
+  Game.prototype.drawPlayer = function(coords) {
+    const face = new fabric.Circle({
+      left: coords.x,
+      top: coords.y,
+      fill: 'blue',
+      strokeWidth: 2,
+      radius: faceSize,
+      selectable: false
+    });
+    this.canvas.add(face);
   }
   
   
