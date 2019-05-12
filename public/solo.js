@@ -39,7 +39,7 @@ window.onload = function() {
     
     
     loadSounds(() => {
-      utils.addClass('intro', 'hidden')
+      $.addClass('intro', 'hidden')
       start()
     })
   }
@@ -90,11 +90,11 @@ function start() {
     'plant': () => player.plant(),
     'retreat': () => {
       player.modeRetreat()
-      utils.removeClass('retreat-overlay', 'hidden')
+      $.removeClass('retreat-overlay', 'hidden')
     },
     'return': () => {
       player.modeAdvance()
-      utils.addClass('retreat-overlay', 'hidden')
+      $.addClass('retreat-overlay', 'hidden')
     }
   }
   
@@ -112,7 +112,7 @@ const player = {
   mode: 'advance',
   
   init: function() {
-    socket.emit('game:join', {}, (error, playerData) => {
+    socket.emit('game:join', {id: this.id}, (error, playerData) => {
       this.id = playerData.id
       this.coords = playerData.coords
     })
@@ -139,3 +139,36 @@ const player = {
   }
 }
 
+
+// html stuff
+
+const $ = {}
+$.show = function(id, display) {
+  const element = document.getElementById(id);
+  if (!element) { return }
+  element.style.display = display || 'block'
+}
+
+$.hide = function(id) {
+  const element = document.getElementById(id);
+  if (!element) { return }
+  element.style.display = 'none'
+}
+
+$.addClass = function(id, newClass) {
+  const element = document.getElementById(id);
+  if (!element) { return }
+  const classes = element.className.split(" ")
+  if (classes.indexOf(newClass) > -1) { return }
+  classes.push(newClass)
+  element.className = classes.join(" ")
+}
+
+$.removeClass = function(id, oldClass) {
+  const element = document.getElementById(id);
+  if (!element) { return }
+  const classes = element.className.split(" ")
+  if (classes.indexOf(oldClass) === -1) { return }
+  classes.splice(classes.indexOf(oldClass), 1)
+  element.className = classes.join(" ")
+}

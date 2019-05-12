@@ -27,9 +27,13 @@ io.on('connection', function (socket) {
   })
   
   socket.on('game:join', (data, callback) => {
-    const newPlayer = addPlayer()
-    callback(null, newPlayer)
+    if (data.id && data.id in playersById) {
+      return callback(null, playersById[data.id])
+    }
     
+    console.log('new player', socket.id, data)
+    const newPlayer = addPlayer(data.id)
+    callback(null, newPlayer)
   });
   
   socket.on('action:plant', (coords) => {
@@ -51,7 +55,7 @@ const gameSize = {
 }
 
 const Player = require('./player')
-const utils = require('./public/utils')
+const utils = require('./utils')
 
 // meh
 const playersById = {}
@@ -59,11 +63,14 @@ const playersById = {}
 const items = []
 
 
-function addPlayer() {
+function addPlayer(id) {
   const player = new Player(
     `player${new Date().valueOf() - 1557600000000}`, // id
     utils.randCoords(gameSize)
   )
+  
+  // this will overwrite old players
+  if (id) { player.id = id }
   
   playersById[player.id] = player
   
