@@ -30,8 +30,14 @@ window.onload = function() {
       })
     })
     
+    
     socket.on("plant:new", (plant) => {
       game.plantOne(plant.coords)
+    })
+    
+    
+    socket.on("turbine:new", (turbine) => {
+      game.drawTurbine(turbine.coords)
     })
     
     socket.on("player:new", (player) => {

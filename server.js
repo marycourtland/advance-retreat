@@ -140,7 +140,6 @@ function addTurbine(coords) {
     utils.getId('turbine'),
     coords
   )
-  // itemsById[newPlant.id] = newPlant
-  // io.in("map-view").emit("plant:new", newPlant) 
+  itemsById[newTurbine.id] = newTurbine
+  io.in("map-view").emit("turbine:new", newTurbine)
 }
-
