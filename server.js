@@ -67,6 +67,8 @@ function addPlayer() {
   
   playersById[player.id] = player
   
+  io.in("map-view").emit("new:player", player) 
+  
   return player
 }
 

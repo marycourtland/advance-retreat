@@ -92,24 +92,46 @@
       radius: faceSize,
       selectable: false
     });
-    const eye1 = new fabric.Group([
-      new fabric.Circle({
-        originX: 'center',
-        originY: 'center',
-        fill: 'white',
-        radius: 4,
-        selectable: false
-      }),
-      new fabric.Circle({
-        originX: 1,
-        originY: 'center',
-        fill: 'black',
-        radius: 2,
-        selectable: false
-      })
-    ], {originX: 'center', originY: 'center'})
     
-    var player = new fabric.Group([face, eye1], {
+    const eyeSep = 5
+    const pupilOffset = {x: 1, y: 1}
+    
+    const eye1 = new fabric.Circle({
+      originX: 'center',
+      originY: 'center',
+      left: -eyeSep,
+      fill: 'white',
+      radius: 4,
+      selectable: false
+    })
+    const eye2 = new fabric.Circle({
+      originX: 'center',
+      originY: 'center',
+      left: eyeSep,
+      fill: 'white',
+      radius: 4,
+      selectable: false
+    })
+    const pupil1 = new fabric.Circle({
+      originX: 'center',
+      originY: 'center',
+      left: -eyeSep + pupilOffset.x,
+      top: pupilOffset.y,
+      fill: 'black',
+      radius: 2,
+      selectable: false
+    })
+    const pupil2 = new fabric.Circle({
+      originX: 'center',
+      originY: 'center',
+      left: eyeSep + pupilOffset.x,
+      top: pupilOffset.y,
+      fill: 'black',
+      radius: 2,
+      selectable: false
+    })
+    
+    var player = new fabric.Group([face, eye1, pupil1, eye2, pupil2], {
       left: coords.x,
       top: coords.y,
     });
