@@ -26,6 +26,7 @@ Player.prototype.updateEnergy = function(dE) {
   this.energy = Math.min(this.energy, 100)
   this.energy = Math.max(this.energy, 0)
   
+  console.log('SENDING PLAYER REFRESH', this.id, this.energy)
   this.emit('player:refresh', this)
   
 }

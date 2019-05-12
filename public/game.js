@@ -97,6 +97,13 @@
     const color = Array.isArray(player.color) ?
       `hsl(${player.color[0]}, ${player.color[1]}%, ${player.color[2]}%)`
       : player.color
+    
+    
+    // blah
+    const eyelidColor = Array.isArray(player.color) ?
+      `hsl(${player.color[0]}, 60%, 30%)`
+      : "gray"
+    
     const face = new fabric.Circle({
       originX: 'center',
       originY: 'center',
@@ -151,7 +158,7 @@
       originX: 'center',
       originY: 'center',
       left: -eyeSep,
-      fill: 'gray',
+      fill: eyelidColor,
       radius: 4.01,
       startAngle: eyelidAngles.start,
       endAngle: eyelidAngles.end,
@@ -161,7 +168,7 @@
       originX: 'center',
       originY: 'center',
       left: eyeSep,
-      fill: 'gray',
+      fill: eyelidColor,
       radius: 4.01,
       startAngle: eyelidAngles.start,
       endAngle: eyelidAngles.end,
@@ -197,7 +204,14 @@
   
   // blah
   Game.prototype.refreshPlayer = function(playerObj, player) {
+    // refresh eyelids
+    const eyelidAngles = getEyelidAngles(player)
+    console.log('ok', player.energy, eyelidAngles)
+    playerObj.eyelid1.set('startAngle', eyelidAngles.start)
+    playerObj.eyelid1.set('endAngle', eyelidAngles.end)
     
+    
+    // TODO: (later?) refresh coords, pupils, etc.
   }
   
   

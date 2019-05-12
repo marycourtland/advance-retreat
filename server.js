@@ -58,6 +58,7 @@ io.on('connection', function (socket) {
     var player = playersById[socket.playerId]
     if (player) {
       addPlant(coords)
+      console.log('GOING TO UPDATE ENERGY', player.id, energyActions.plant)
       player.updateEnergy(energyActions.plant)
     }
     

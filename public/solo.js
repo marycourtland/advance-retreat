@@ -101,7 +101,7 @@ const player = {
   coords: {x: 0, y: 0},
   color: 'blue',
   mode: 'advance',
-  energy: 50, // energy level 0 to 100
+  energy: 100, // energy level 0 to 100
   object: null,
   
   init: function() {

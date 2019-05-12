@@ -38,15 +38,21 @@ window.onload = function() {
     })
     
     socket.on("player:refresh", (player) => {
+      console.log('REFRESHING PLAYER', player.id, player.energy)
       var playerObj = null
       if (player.id in playersById) {
         playerObj = playersById[player.id].object
       }
+      
       if (!playerObj) {
         playerObj = game.drawPlayer(player)
       }
+      else {
+        game.refreshPlayer(playerObj, player)
+      }
       
-      playerObj
+      player.object = playerObj
+      playersById[player.id] = playerobj
     })
   }, 1000)
   
