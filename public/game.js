@@ -84,7 +84,7 @@
       opacity: 0.8,
       selectable: false
     });
-    const scaleBase = 1
+    const scaleBase = 0.1
     const scaleFuzz = Math.random() * (scaleBase)
     plantImg.scale(scaleBase + (scaleFuzz - (scaleFuzz/2)))
     this.canvas.add(plantImg);
@@ -109,6 +109,8 @@
     
     const eyeSep = 5
     const pupilOffset = {x: 1, y: 1}
+    
+    const eyelidDrop = 0.5
     
     const eye1 = new fabric.Circle({
       originX: 'center',
@@ -145,26 +147,36 @@
       selectable: false
     })
     
+    const eyelidAngleStart = Math.PI - (Math.PI/) * eyelidDrop
+    const eyelidAngleEnd = 0 + (3) * eyelidDrop
+    
     const eyelid1 = new fabric.Circle({
       originX: 'center',
       originY: 'center',
-      left: eyeSep + pupilOffset.x,
-      top: pupilOffset.y,
+      left: -eyeSep,
       fill: 'gray',
-      radius: 2,
+      radius: 4,
+      startAngle: eyelidAngleStart,
+      endAngle: eyelidAngleEnd,
       selectable: false
     })
     const eyelid2 = new fabric.Circle({
       originX: 'center',
       originY: 'center',
-      left: eyeSep + pupilOffset.x,
-      top: pupilOffset.y,
+      left: eyeSep,
       fill: 'gray',
-      radius: 2,
+      radius: 4,
+      startAngle: eyelidAngleStart,
+      endAngle: eyelidAngleEnd,
       selectable: false
     })
     
-    var playerObj = new fabric.Group([face, eye1, pupil1, eye2, pupil2], {
+    var playerObj = new fabric.Group([
+      face,
+      eye1, eye2,
+      pupil1, pupil2,
+      eyelid1, eyelid2
+    ], {
       left: coords.x,
       top: coords.y,
     })
@@ -175,6 +187,8 @@
     playerObj.eye2 = eye2
     playerObj.pupil1 = pupil1
     playerObj.pupil2 = pupil2
+    playerObj.eyelid1 = eyelid1
+    playerObj.eyelid2 = eyelid2
     
     this.canvas.add(playerObj)
     
