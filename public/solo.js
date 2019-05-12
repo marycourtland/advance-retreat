@@ -94,10 +94,9 @@ function start() {
 //       }
       
       // this player
-      var playerObj = 
-      game.refreshPlayer(playerObj, player)
+      var playerObj = player.object
+      playerObj = game.refreshPlayer(playerObj, player)
       
-      player.object = playerObj
       // playersById[player.id] = playerObj
     })
     })
