@@ -5,22 +5,14 @@
 const soundFiles = {
   birdsong: 'https://cdn.glitch.com/46e2e6a3-673c-4740-9ce0-0ab28c854d9d%2Fbirdsong.mp3?1557628239205',
 }
-const sounds = {}
-
-const AudioContext = window.AudioContext || window.webkitAudioContext;
-const context = new AudioContext(); 
-
-// hack to get ios webaudio to work
-var unlockAudio = (context.state === 'suspended' && 'ontouchstart' in window) ? function() {
-  context.resume()
-  Pizzicato.context.resume()
-  
-} : function() {}
+const sounds = {} // will get populated
 
 ///
 
 var socket
 var game
+
+window.addEventListener("touchstart", window.unlock);
 
 
 var silence = new Pizzicato.Sound(function(e) {
@@ -35,14 +27,14 @@ window.onload = function() {
   const intro = document.getElementById("intro")
   intro.onclick = function() {
     // get ios to load webaudio
-    let context = Pizzicato.context
-    let source = context.createBufferSource()
-    source.buffer = context.createBuffer(1, 1, 22050)
-    source.connect(context.destination)
-    source.start()
+//     let context = Pizzicato.context
+//     let source = context.createBufferSource()
+//     source.buffer = context.createBuffer(1, 1, 22050)
+//     source.connect(context.destination)
+//     source.start()
     
     
-    unlockAudio();
+    // unlockAudio();
     // silence.play()
     
     
