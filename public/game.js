@@ -236,6 +236,8 @@
     console.log('ok', player.energy, eyelidAngles)
     playerObj.eyelid1.set('startAngle', eyelidAngles.start)
     playerObj.eyelid1.set('endAngle', eyelidAngles.end)
+    playerObj.eyelid2.set('startAngle', eyelidAngles.start)
+    playerObj.eyelid2.set('endAngle', eyelidAngles.end)
     
     
     // TODO: (later?) refresh coords, pupils, etc.

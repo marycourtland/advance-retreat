@@ -76,9 +76,6 @@ h2 {
     font-size: 12pt;
     
     position: fixed;
-    bottom: 20vh;
-    left: 5vw;
-    
     width: 40vw;
     max-width: 150px;
     height: 0px;
@@ -102,7 +99,7 @@ h2 {
   /*********/
 
   #action-plant {
-/*     right: 5vh; */
+    left: 5vw;
     bottom: 31vh;
   }
 
@@ -114,7 +111,7 @@ h2 {
   /*********/
 
   #action-turbine {
-/*     left: 5vw; */
+    left: 5vw;
     bottom: 18vh;
   }
 

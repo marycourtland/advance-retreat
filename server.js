@@ -16,6 +16,7 @@ app.get('/game', function(request, response) {
   response.sendFile(__dirname + '/views/group.html');
 });
 
+
 app.get('/credits', function(request, response) {
   response.sendFile(__dirname + '/views/credits.html');
 });
