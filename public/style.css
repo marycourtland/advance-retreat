@@ -22,7 +22,7 @@ body {
   width: 100%;
 }
 
-  #game-container * {
+  #game-container > * {
     position: absolute;
     top: 0;
     left: 0;
@@ -50,9 +50,8 @@ body {
   height: 100%;
 }
 
-  #action-plant {
+  .action {
     pointer-events: auto;
-    background: #324a70;
     color: #cde2f2;
     opacity: 0.9;
     user-select: none;
@@ -61,11 +60,6 @@ body {
     position: relative;
     margin-left: auto;
     margin-right: auto;
-    top: 40vh;
-    
-/*     position: absolute;
-    top: 10px;
-    left: 40px; */
     
     width: 60vw;
     height: 0px;
@@ -75,15 +69,42 @@ body {
     padding-bottom: 30vw;
     line-height: 0;
   }
-  #action-plant:after {
-    content: "Plant";
+
+  .action:after {
     height: 0;
   }
 
+  /*********/
+
+  #action-plant {
+    background: #324a70;
+    top: 40vh;
+  }
+
+  #action-plant:after {
+    content: "Advance";
+  }
+
   #action-plant:active {
-    opacity: 0.9;
     background-color: #3d65a5;
   }
+
+  /*********/
+
+  #action-retreat {
+    background: #6cf756;
+    top: 20vh;
+  }
+
+  #action-retreat:after {
+    content: "Retreat";
+  }
+
+  #action-retreat:active {
+    background-color: #6cf756;
+  }
+
+  /*********/
 
 
 #intro {
