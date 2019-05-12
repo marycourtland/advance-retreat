@@ -99,16 +99,22 @@ function start() {
 const player = {
   id: null,
   coords: {x: 0, y: 0},
+  color: 'blue',
   mode: 'advance',
   
   init: function() {
     socket.emit('game:join', {id: this.id}, (error, playerData) => {
       this.id = playerData.id
       this.coords = playerData.coords
+      this.color = playerData.color
       socket.emit('view:show-me-the-map', {})
       
+      
+      // some UI crap
+      const zoom = 4
+      const centerOffset = window.innerHeight * 0.05
+      
       // fabricjs is weird so set zoom first
-      const zoom = 3
       game.canvas.zoomToPoint(game.canvas.getVpCenter(), zoom)
       
       // center on player
@@ -117,8 +123,8 @@ const player = {
       const canvasCenter = game.canvas.getVpCenter()
       console.log(game.canvas.getVpCenter())
       game.canvas.relativePan(new fabric.Point(
-        (canvasCenter.x - playerCenter.x)*3,
-        (canvasCenter.y - playerCenter.y)*3
+        (canvasCenter.x - playerCenter.x)*zoom,
+        (canvasCenter.y - centerOffset - playerCenter.y)*zoom
       ))
     })
   },

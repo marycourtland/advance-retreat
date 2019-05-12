@@ -78,9 +78,11 @@ body {
     height: 0px;
     border-radius: 15vw;
     text-align: center;
-    padding-top: 15vw;
-    padding-bottom: 15vw;
+    padding-top: 40px;
+    padding-bottom: 40px;
     line-height: 0;
+    
+    max-width: 200px;
   }
 
   .action:after {
