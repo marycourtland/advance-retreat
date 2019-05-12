@@ -47,7 +47,7 @@
   }
   
   Game.prototype.plantOne = function(coords) {
-    this.drawPlant(coords)
+    return this.drawPlant(coords)
   }
 
   Game.prototype.plantMany = function(coords) {
@@ -68,11 +68,13 @@
       selectable: false
     });
     this.canvas.add(dot);
+    
+    return dot
   }
   
 
   Game.prototype.drawPlant = function(coords) {
-    const img = new fabric.Image(document.getElementById('plant'), {
+    const plantImg = new fabric.Image(document.getElementById('plant'), {
       left: coords.x,
       top: coords.y,
       opacity: 0.8,
@@ -80,14 +82,15 @@
     });
     const scaleBase = 0.1
     const scaleFuzz = Math.random() * (scaleBase)
-    img.scale(scaleBase + (scaleFuzz - (scaleFuzz/2)))
-    this.canvas.add(img);
+    plantImg.scale(scaleBase + (scaleFuzz - (scaleFuzz/2)))
+    this.canvas.add(plantImg);
+    
+    return plantImg
   }
   
-  Game.prototype.drawPlayer = function(player) {
-    const coords = player.coords
+  Game.prototype.drawPlayer = function(player, coords) {
+    coords = coords || player.coords
     const color = Array.isArray(player.color) ?
-      // new fabric.Color.fromHsl(`hsl(${player.color[0]}, ${player.color[1]}%, ${player.color[2]}%)`)
       `hsl(${player.color[0]}, ${player.color[1]}%, ${player.color[2]}%)`
       : player.color
     const face = new fabric.Circle({
@@ -143,6 +146,8 @@
       top: coords.y,
     });
     this.canvas.add(player);
+    
+    return player
   }
   
   

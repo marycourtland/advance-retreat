@@ -46,6 +46,7 @@ function loadSounds(done) {
   }
 }
 
+
 function start() {
   socket = io()
   game = new Game('game')
@@ -88,7 +89,8 @@ function start() {
   }
 }
 
-// TODO: there shouldn't be a mousemove event for planting. But it's fun soooo
+// TODO: there shouldn't be a mousemove event for planting.
+// But it's fun soooo
 
 
 const player = {
@@ -100,6 +102,9 @@ const player = {
     socket.emit('game:join', {id: this.id}, (error, playerData) => {
       this.id = playerData.id
       this.coords = playerData.coords
+      
+      var playerObj = game.drawPlayer(this, {x: 0, y: 0})
+      game.canvas.centerObject(playerObj)
     })
   },
 
@@ -129,7 +134,7 @@ const player = {
 }
 
 
-// html stuff
+// html crap
 
 const $ = {}
 $.show = function(id, display) {
