@@ -83,7 +83,7 @@ io.on('connection', function (socket) {
     if (player) {
       player.updateEnergy(energyActions.recharge)
     }
-  });
+  })
   
   socket.on('disconnect', () => {
     const player = playersById[socket.playerId]

@@ -194,6 +194,11 @@ const player = {
     this.mode = 'advance'
     
     sounds.birdsong.pause()
+
+    if (this.rechargeInterval) {
+      clearInterval(this.rechargeInterval)
+      delete this.rechargeInterval
+    }
   },
   
   modeRetreat: function() {
