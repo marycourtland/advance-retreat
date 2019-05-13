@@ -6,6 +6,8 @@
 // meh
 const plantRadius = 40
 
+const rechargeTime = 1000
+
 const soundFiles = {
   birdsong: 'https://cdn.glitch.com/46e2e6a3-673c-4740-9ce0-0ab28c854d9d%2Fbirdsong.mp3?1557628239205',
 }
@@ -78,6 +80,9 @@ function start() {
     socket.on("player:refresh", (thePlayer) => {
       if (thePlayer.id !== player.id) { return }
       console.log('REFRESHING PLAYER', player.id, player.energy)
+      
+      player.energy = thePlayer.energy
+      // TODO: anything else to refresh?
       
       
       // stuff for other players
@@ -197,7 +202,7 @@ const player = {
     
     this.rechargeInterval = setInterval(function() {
       player.recharge()
-    }, 2000)
+    }, rechargeTime)
     
     sounds.birdsong.play()
   }
