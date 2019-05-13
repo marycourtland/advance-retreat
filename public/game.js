@@ -83,7 +83,7 @@
       left: coords.x,
       top: coords.y,
       originX: 0.1,
-      originY: 0.1,
+      originY: 0.65,
       opacity: 0.8,
       selectable: false
     });
