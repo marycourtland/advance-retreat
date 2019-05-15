@@ -1,27 +1,13 @@
-Welcome to Glitch
-=================
+Games For Our Future 2019
 
-Click `Show` in the header to see your app live. Updates to your code will instantly deploy and update live.
+We have huge challenge ahead of of us to get our carbon emissions under control. But I find that it's easy to get demotivated by the immensity of it. How do we stay energized?
 
-**Glitch** is the friendly community where you'll build the app of your dreams. Glitch lets you instantly create, remix, edit, and host an app, bot or site, and you can invite collaborators or helpers to simultaneously edit code with you.
+This game looks at the balance between taking care of yourself and contributing to this societal goal. You can take some actions to advance the project (planting trees, building wind turbines). Each action will decrease your energy level. Restore yourself by retreating to nature, represented by birdsong.
 
-Find out more [about Glitch](https://glitch.com/about).
+I was inspired by a lot of the researchers at the game jam, especially:
 
+- Sarah Chase, nature connectedness
+- Rick Thomas, collaboration in outdoor games
 
-Your Project
-------------
-
-On the front-end,
-- edit `public/client.js`, `public/style.css` and `views/index.html`
-- drag in `assets`, like images or music, to add them to your project
-
-On the back-end,
-- your app starts at `server.js`
-- add frameworks and packages in `package.json`
-- safely store app secrets in `.env` (nobody can see this but you and people you invite)
-
-
-Made by [Glitch](https://glitch.com/)
--------------------
-
-\ ゜o゜)ノ
+Itch.io page: https://musicalcomet.itch.io/advance-and-retreat
+Jam page: https://itch.io/jam/games-for-our-future-game-jam-2019
