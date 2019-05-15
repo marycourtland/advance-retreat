@@ -17,6 +17,7 @@ window.isGroup = false
 
 ///
 
+
 var socket
 var game
 
