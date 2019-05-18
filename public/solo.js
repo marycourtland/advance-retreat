@@ -107,9 +107,9 @@ function start() {
           }
         }
         else {
-          drawPlayer(player)
-          player.object.opacity = 0.6
           // drawing a different player
+          drawPlayer(player)
+          
         }
 
         
@@ -174,6 +174,8 @@ const player = {
             game.drawTurbine(item.coords)
           }
         }
+        // make sure player is in front
+        this.object.bringToFront()
       })
       
       // center on players
@@ -244,6 +246,7 @@ const player = {
     if (this.mode === 'advance') { return }
 
     game.removeRetreatOverlay()
+    this.zoom(1, 3000)
 
     // wait until overlay is finished to change mode
     setTimeout(() => {
@@ -263,17 +266,20 @@ const player = {
   modeRetreat: function() {
     if (this.mode === 'retreat') { return }
 
-
     game.drawRetreatOverlay()
+    this.zoom(4, 3000)
 
     // wait until overlay is finished to change mode
     setTimeout(() => {
       this.mode = 'retreat';
       this.rechargeInterval = setInterval(function() {
         player.recharge()
-      }, rechargeTime)  
+      }, rechargeTime)
+
+      this.object.bringToFront()
       
       sounds.birdsong.play()
+
 
       if (player.energy >= MIN_ENERGY) {
         $.removeClass('retreat-overlay', 'hidden')
@@ -282,6 +288,22 @@ const player = {
 
     
     $.addClass('actions', 'hidden')
+  },
+
+  zoom: function(zoom, duration) {
+    this.object.animate('scaleX', zoom, {
+      duration: duration,
+      onChange: this.object.canvas.renderAll.bind(this.object.canvas),
+      onComplete: () => {},
+      easing: fabric.util.ease['easeOutQuad']
+    })
+
+    this.object.animate('scaleY', zoom, {
+      duration: duration,
+      onChange: this.object.canvas.renderAll.bind(this.object.canvas),
+      onComplete: () => {},
+      easing: fabric.util.ease['easeOutQuad']
+    })
   },
 
   draw: function() {
@@ -306,10 +328,17 @@ function drawPlayer(player) {
   if (player.id !== window.player.id) {
     player.object.set('scaleX', 0.7)
     player.object.set('scaleY', 0.7)
+    if (window.player.mode === 'advance') {
+      player.object.moveTo(1)
+    }
+    else {
+      player.object.moveTo(2)
+    }
   }
   else {
-    player.object.bringToFront()
     player.centerGameOnMe()
+    player.object.bringToFront()
+    game.canvas.renderAll()
   }
   return player
 }

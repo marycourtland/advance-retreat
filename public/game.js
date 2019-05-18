@@ -211,10 +211,12 @@
       face,
       eye1, eye2,
       pupil1, pupil2,
-      eyelid1, eyelid2
+      eyelid1, eyelid2,
     ], {
       left: coords.x,
       top: coords.y,
+      originX: 'center',
+      originY: 'center',
       selectable: false
     })
     
@@ -301,9 +303,12 @@
   }
   
   Game.prototype.drawRetreatOverlay = function() {
-    const originPoint = game.canvas.vptCoords.tl
-    const width = game.canvas.vptCoords.br.x - originPoint.x
-    const height = game.canvas.vptCoords.br.y - originPoint.y
+    // const originPoint = game.canvas.vptCoords.tl
+    const originPoint = {x:0, y:0}
+    const width = gameSize.x
+    const height = gameSize.y
+    // const width = game.canvas.vptCoords.br.x - originPoint.x
+    // const height = game.canvas.vptCoords.br.y - originPoint.y
     const overlay = new fabric.Rect({
       left: originPoint.x - 1,
       top: originPoint.y - 1,
