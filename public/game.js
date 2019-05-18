@@ -242,11 +242,16 @@
   Game.prototype.refreshPlayer = function(playerObj, player) {
     // refresh eyelids
     const eyelidAngles = getEyelidAngles(player)
-    console.log('ok', player.energy, eyelidAngles)
     playerObj.eyelid1.set('startAngle', eyelidAngles.start)
     playerObj.eyelid1.set('endAngle', eyelidAngles.end)
     playerObj.eyelid2.set('startAngle', eyelidAngles.start)
     playerObj.eyelid2.set('endAngle', eyelidAngles.end)
+
+    playerObj.left = player.coords.x
+    playerObj.top = player.coords.y
+    playerObj.setCoords()
+
+    this.canvas.renderAll() // meh, not refreshing?
 
     return playerObj
     // TODO: (later?) refresh coords, pupils, etc.
@@ -305,7 +310,8 @@
       width: width + 2,
       height: height + 2,
       fill: "#000000",
-      opacity: 0
+      opacity: 0,
+      selectable: false
     })
     this.overlay = overlay
     this.canvas.add(overlay);

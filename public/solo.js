@@ -16,8 +16,9 @@ const sounds = {} // will get populated
 window.isGroup = false
 
 const MIN_ENERGY = 80
+const ZOOM = 1
 
-
+const playersById = {}
 var socket
 var game
 
@@ -61,49 +62,60 @@ function start() {
   // game.shouldPlantOneOnMousemove()
   // player.init()
   
-  
-  
-  var sawtoothWave = new Pizzicato.Sound({ 
-      source: 'wave',
-      options: {
-          type: 'sawtooth'
-      }
-  });
-  var delay = new Pizzicato.Effects.Delay();
-  sawtoothWave.addEffect(delay);
+
+  // TODO: clean up ambigious 'player' var names
   
   setTimeout(function() {
     socket = io()
     socket.on("connect", function() {
       player.init()
-      
-      
-    socket.on("player:refresh", (thePlayer) => {
-      if (thePlayer.id !== player.id) { return }
-      console.log('REFRESHING PLAYER', player.id, player.energy)
-      
-      player.energy = thePlayer.energy
-      // TODO: anything else to refresh?
+      player.shouldMoveOnTouch()
 
-      // this player
-      player.draw()
+      socket.on("player:refresh", (thePlayer) => {
+        var player;
+        if (thePlayer.id === window.player.id) {
+          player = window.player;
+        }
+        else if (thePlayer.id in playersById) {
+          player = playersById[thePlayer.id];
+        }
+        else {
+          playersById[thePlayer.id] = thePlayer;
+          player = thePlayer;
+        }
+        console.log('REFRESHING PLAYER', player.id, thePlayer.coords)
+        
+        player.energy = thePlayer.energy
+        player.coords.x = thePlayer.coords.x
+        player.coords.y = thePlayer.coords.y
+        // TODO: anything else to refresh?
 
-      // player info
-      $.text("player-energy", `Energy: ${player.energy}%`)
-      
-      // playersById[player.id] = playerObj
+        // this player
 
-      // check for retreat mode
-      if (player.mode === 'advance' && player.energy === 0) {
-        setTimeout(function() {
-          player.modeRetreat()
-        }, 500)
-      }
-      else if (player.mode === 'retreat' && player.energy >= MIN_ENERGY) {
-        // Player can go back to normal mode now
-        $.removeClass('retreat-overlay', 'hidden')
-      }
-    })
+        if (thePlayer.id === window.player.id) {
+          window.player.draw()
+
+          // check for retreat mode
+          if (player.mode === 'advance' && player.energy === 0) {
+            setTimeout(function() {
+              player.modeRetreat()
+            }, 500)
+          }
+          else if (player.mode === 'retreat' && player.energy >= MIN_ENERGY) {
+            // Player can go back to normal mode now
+            $.removeClass('retreat-overlay', 'hidden')
+          }
+        }
+        else {
+          drawPlayer(player)
+          player.object.opacity = 0.6
+          // drawing a different player
+        }
+
+        
+        // playersById[player.id] = playerObj
+
+      })
     })
   }, 1000)
   
@@ -140,29 +152,70 @@ const player = {
   rechargeInterval: null,
   
   init: function() {
+    window.player = this
     socket.emit('game:join', {id: this.id}, (error, playerData) => {
       this.id = playerData.id
       this.coords = playerData.coords
       this.color = playerData.color
-      socket.emit('view:show-me-the-map', {})
+      socket.emit('view:show-me-the-map', {}, (error, stuff) => {
+        var player;
+        for (var playerId in stuff.players) {
+          if (playerId === this.id) { return }
+          player = stuff.players[playerId]
+          drawPlayer(player)
+          playersById[playerId] = player
+        }
+        for (var itemId in stuff.items) {
+          var item = stuff.items[itemId]
+          if (item.type === 'plant') {
+            game.plantOne(item.coords)
+          }
+          if (item.type === 'turbine') {
+            game.drawTurbine(item.coords)
+          }
+        }
+      })
       
-      
-      // some UI crap
-      const zoom = 4
-      const centerOffset = window.innerHeight * 0.05
-      
-      // fabricjs is weird so set zoom first
-      game.canvas.zoomToPoint(game.canvas.getVpCenter(), zoom)
-      
-      // center on player
-      const playerObj = this.draw()
-      const playerCenter = playerObj.getCenterPoint()
-      const canvasCenter = game.canvas.getVpCenter()
-      game.canvas.relativePan(new fabric.Point(
-        (canvasCenter.x - playerCenter.x)*zoom,
-        (canvasCenter.y - centerOffset - playerCenter.y)*zoom
-      ))
+      // center on players
+      this.draw()
+      this.centerGameOnMe()
     })
+  },
+
+  centerGameOnMe: function() {
+    const centerOffset = window.innerHeight * 0.05
+    
+    // fabricjs is weird so set zoom first
+    // game.canvas.zoomToPoint(game.canvas.getVpCenter(), ZOOM)
+
+    const playerCenter = this.object.getCenterPoint()
+    const canvasCenter = game.canvas.getVpCenter()
+    game.canvas.relativePan(new fabric.Point(
+      (canvasCenter.x - playerCenter.x)*ZOOM,
+      (canvasCenter.y - centerOffset - playerCenter.y)*ZOOM
+    ))
+  },
+
+  shouldMoveOnTouch: function() {
+    game.canvas.on({
+      'mouse:down': (event) => {
+        var p = game.canvas.getPointer(event.e)
+        this.moveToward(p)
+      }
+    });
+  },
+
+  moveToward: function(coords) {
+    if (this.mode === 'retreat') { return }
+    const velocity = 15
+    const angle = _.angleTo(this.coords, coords)
+    const newCoords = _.addRthToCoords(
+      this.coords,
+      {r: velocity, th: angle}
+    )
+    this.coords = newCoords
+    // wait until server sends a refresh event to update position
+    socket.emit('action:move', {coords: newCoords})
   },
   
   recharge: function() {
@@ -202,8 +255,8 @@ const player = {
       sounds.birdsong.pause()  
 
       $.removeClass('actions', 'hidden')
+      $.addClass('retreat-overlay', 'hidden')
     }, 3000)
-    $.addClass('retreat-overlay', 'hidden')
 
   },
   
@@ -219,32 +272,46 @@ const player = {
       this.rechargeInterval = setInterval(function() {
         player.recharge()
       }, rechargeTime)  
+      
       sounds.birdsong.play()
+
+      if (player.energy >= MIN_ENERGY) {
+        $.removeClass('retreat-overlay', 'hidden')
+      }
     }, 3000)
 
-    if (player.energy >= MIN_ENERGY) {
-      $.removeClass('retreat-overlay', 'hidden')
-    }
     
     $.addClass('actions', 'hidden')
   },
 
   draw: function() {
-    if (!this.object) {
-      this.object = game.drawPlayer(this)
-
-    }
-    else {
-      this.object = game.refreshPlayer(this.object, this)
-      game.canvas.renderAll() // meh, not refreshing?
-    }
+    drawPlayer(this)
 
     // player info
     $.text("player-energy", `Energy: ${player.energy}%`)
 
     return this.object
   }
+}
 
+function drawPlayer(player) {
+  if (!player.object) {
+    player.object = game.drawPlayer(player)
+
+  }
+  else {
+    player.object = game.refreshPlayer(player.object, player)
+  }
+
+  if (player.id !== window.player.id) {
+    player.object.set('scaleX', 0.7)
+    player.object.set('scaleY', 0.7)
+  }
+  else {
+    player.object.bringToFront()
+    player.centerGameOnMe()
+  }
+  return player
 }
 
 
@@ -285,4 +352,22 @@ $.text = function(id, text) {
   const element = document.getElementById(id);
   if (!element) { return }
   element.innerText = text
+}
+
+// mathy
+const _ = {}
+
+_.angleTo = function(coords1, coords2) {
+  if (!coords2) {
+    coords2 = coords1
+    coords1 = {x: 0, y: 0}
+  }
+  return Math.atan2((coords2.y - coords1.y), (coords2.x - coords1.x))
+}
+
+_.addRthToCoords = function(coords, rth) {
+  return {
+    x: coords.x + rth.r * Math.cos(rth.th),
+    y: coords.y + rth.r * Math.sin(rth.th)
+  }
 }

@@ -18,8 +18,11 @@ window.onload = function() {
     socket = io()
     socket.on("connect", () => {
       socket.emit("view:show-me-the-map", {}, (error, stuff) => {
+        var player;
         for (var playerId in stuff.players) {
-          game.drawPlayer(stuff.players[playerId])
+          player = stuff.players[playerId]
+          player.object = game.drawPlayer(player)
+          playersById[playerId] = player
         }
         for (var itemId in stuff.items) {
           var item = stuff.items[itemId]
@@ -48,12 +51,23 @@ window.onload = function() {
       game.drawPlayer(player)
     })
     
-    socket.on("player:refresh", (player) => {
-      console.log('REFRESHING PLAYER', player.id, player.energy)
-      var playerObj = null
-      if (player.id in playersById) {
-        playerObj = playersById[player.id].object
+    socket.on("player:refresh", (thePlayer) => {
+      console.log('REFRESHING PLAYER', thePlayer.id, thePlayer.energy)
+      var player = null
+      if (thePlayer.id in playersById) {
+        player = playersById[thePlayer.id]
       }
+      else {
+        player = thePlayer
+        playersById[player.id] = player
+      }
+
+      player.energy = thePlayer.energy
+      player.coords.x = thePlayer.coords.x
+      player.coords.y = thePlayer.coords.y
+      // TODO: anything else to refresh?
+
+      playerObj = player.object
       
       if (!playerObj) {
         playerObj = game.drawPlayer(player)
@@ -63,7 +77,6 @@ window.onload = function() {
       }
       
       player.object = playerObj
-      playersById[player.id] = playerObj
     })
   }, 1000)
   

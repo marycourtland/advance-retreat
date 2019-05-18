@@ -10,7 +10,8 @@
 }
 
 body {
-  background-color: #635a57;
+  /* background-color: #635a57; */
+  background-color: #21353a;
   margin: 0;
   font-family: helvetica, arial, sans-serif;
 }
@@ -36,7 +37,7 @@ h2 {
     position: absolute;
     top: 0;
     left: 0;
-    background-color: #635a57;
+    background-color: #21353a;
   }
   #boundary {
     width: 800px;
@@ -47,10 +48,10 @@ h2 {
     pointer-events: none;
   }
 
-
 .solo .canvas-container {
   margin-left: auto;
   margin-right: auto;
+  
 /*   margin-top: 40px; */
 }
 /* 
@@ -106,7 +107,7 @@ h2 {
 
   #action-plant {
     left: 5vw;
-    bottom: 31vh;
+    top: 10vh;
   }
 
   #action-plant:after {
@@ -117,8 +118,8 @@ h2 {
   /*********/
 
   #action-turbine {
-    left: 5vw;
-    bottom: 18vh;
+    right: 5vw;
+    top: 10vh;
   }
 
   #action-turbine:after {

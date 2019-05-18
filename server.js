@@ -24,7 +24,7 @@ app.get('/credits', function(request, response) {
 });
 
 const listener = server.listen(process.env.PORT || DEFAULT_PORT, function() {
-  console.log('Your app is listening on port ' + listener.address().port);
+  console.log('Listening on port ' + listener.address().port);
 })
 
 // blah
@@ -34,7 +34,6 @@ io.on('connection', function (socket) {
   
   socket.on('view:show-me-the-map', (data, callback) => {
     socket.join("map-view")
-    console.log(callback)
     
     if (typeof callback === 'function') {
       callback(null, {players: playersById, items: itemsById})
@@ -65,7 +64,6 @@ io.on('connection', function (socket) {
     var player = playersById[socket.playerId]
     if (player) {
       addPlant(coords)
-      console.log('GOING TO UPDATE ENERGY', player.id, energyActions.plant)
       player.updateEnergy(energyActions.plant)
     }
     
@@ -75,7 +73,6 @@ io.on('connection', function (socket) {
     var player = playersById[socket.playerId]
     if (player) {
       addTurbine(coords)
-      console.log('GOING TO UPDATE ENERGY', player.id, energyActions.turbine)
       player.updateEnergy(energyActions.turbine)
     }
   });
@@ -84,6 +81,14 @@ io.on('connection', function (socket) {
     var player = playersById[socket.playerId]
     if (player) {
       player.updateEnergy(energyActions.recharge)
+    }
+  })
+  
+  socket.on('action:move', (data) => {
+    if (!data.coords) { return }
+    var player = playersById[socket.playerId]
+    if (player) {
+      player.updateCoords(data.coords)
     }
   })
   

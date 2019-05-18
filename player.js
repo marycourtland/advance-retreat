@@ -34,4 +34,13 @@ Player.prototype.updateEnergy = function(dE) {
   
 }
 
+Player.prototype.updateCoords = function(coords) {
+  var originalCoords = this.coords
+  this.coords = coords
+  
+  if (originalCoords.x !== this.coords.x || originalCoords.y !== this.coords.y) {
+    this.emit('player:refresh', this)
+  }
+}
+
 module.exports = Player
