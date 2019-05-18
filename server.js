@@ -112,6 +112,7 @@ const Player = require('./player')
 const Item = require('./item')
 const utils = require('./utils')
 const energyActions = require('./energy-actions')
+const coordLocations = require('./locations.json')
 
 // meh
 const playersById = {}
@@ -121,7 +122,7 @@ const itemsById = {}
 function addPlayer(id) {
   const player = new Player(
     utils.getId('player'),
-    utils.randCoords(gameSize)
+    utils.randCoordsNearPoints(coordLocations, 10)
   )
   
   // this will overwrite old players

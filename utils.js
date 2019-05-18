@@ -8,6 +8,13 @@ utils.addCoords = function(coords1, coords2) {
   }
 }
 
+utils.randCoordsNearPoints = function(coords, radius) {
+  // (not really a radius... square radius)
+  return utils.addCoords(
+    utils.randChoice(coords),
+    utils.randCoords({x:-radius, y:-radius}, {x:radius, y:radius})
+  )
+}
 
 utils.randCoords = function(coords1, coords2) {
   if (!coords2) {
@@ -18,6 +25,10 @@ utils.randCoords = function(coords1, coords2) {
     x: utils.randInt(coords1.x, coords2.x),
     y: utils.randInt(coords1.y, coords2.y),
   }
+}
+
+utils.randChoice = function(array) {
+  return array[Math.ceil(Math.random() * array.length)]
 }
 
 utils.randInt = function(a, b) {
