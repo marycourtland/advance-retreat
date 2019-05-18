@@ -15,7 +15,7 @@ const sounds = {} // will get populated
 
 window.isGroup = false
 
-///
+const MIN_ENERGY = 80
 
 
 var socket
@@ -84,27 +84,25 @@ function start() {
       
       player.energy = thePlayer.energy
       // TODO: anything else to refresh?
-      
-      
-      // stuff for other players
-//       var playerObj = null
-//       if (player.id in playersById) {
-//         playerObj = playersById[player.id].object
-//       }
-      
-//       if (!playerObj) {
-//         playerObj = game.drawPlayer(player)
-//       }
-//       else {
-//         game.refreshPlayer(playerObj, player)
-//       }
-      
+
       // this player
-      var playerObj = player.object
-      playerObj = game.refreshPlayer(playerObj, player)
-      game.canvas.renderAll() // meh, not refreshing?
+      player.draw()
+
+      // player info
+      $.text("player-energy", `Energy: ${player.energy}%`)
       
       // playersById[player.id] = playerObj
+
+      // check for retreat mode
+      if (player.mode === 'advance' && player.energy === 0) {
+        setTimeout(function() {
+          player.modeRetreat()
+        }, 500)
+      }
+      else if (player.mode === 'retreat' && player.energy >= MIN_ENERGY) {
+        // Player can go back to normal mode now
+        $.removeClass('retreat-overlay', 'hidden')
+      }
     })
     })
   }, 1000)
@@ -115,13 +113,9 @@ function start() {
     'turbine': () => player.buildTurbine(),
     'retreat': () => {
       player.modeRetreat()
-      $.removeClass('retreat-overlay', 'hidden')
-      $.addClass('actions', 'hidden')
     },
     'return': () => {
       player.modeAdvance()
-      $.addClass('retreat-overlay', 'hidden')
-      $.removeClass('actions', 'hidden')
     }
   }
   
@@ -161,7 +155,7 @@ const player = {
       game.canvas.zoomToPoint(game.canvas.getVpCenter(), zoom)
       
       // center on player
-      const playerObj = game.drawPlayer(this)
+      const playerObj = this.draw()
       const playerCenter = playerObj.getCenterPoint()
       const canvasCenter = game.canvas.getVpCenter()
       game.canvas.relativePan(new fabric.Point(
@@ -195,30 +189,62 @@ const player = {
   
   modeAdvance: function() {
     if (this.mode === 'advance') { return }
-    this.mode = 'advance'
 
     game.removeRetreatOverlay()
-    
-    sounds.birdsong.pause()
 
-    if (this.rechargeInterval) {
-      clearInterval(this.rechargeInterval)
-      delete this.rechargeInterval
-    }
+    // wait until overlay is finished to change mode
+    setTimeout(() => {
+      this.mode = 'advance';
+      if (this.rechargeInterval) {
+        clearInterval(this.rechargeInterval)
+        delete this.rechargeInterval
+      }
+      sounds.birdsong.pause()  
+
+      $.removeClass('actions', 'hidden')
+    }, 3000)
+    $.addClass('retreat-overlay', 'hidden')
+
   },
   
   modeRetreat: function() {
     if (this.mode === 'retreat') { return }
-    this.mode = 'retreat';
+
 
     game.drawRetreatOverlay()
+
+    // wait until overlay is finished to change mode
+    setTimeout(() => {
+      this.mode = 'retreat';
+      this.rechargeInterval = setInterval(function() {
+        player.recharge()
+      }, rechargeTime)  
+      sounds.birdsong.play()
+    }, 3000)
+
+    if (player.energy >= MIN_ENERGY) {
+      $.removeClass('retreat-overlay', 'hidden')
+    }
     
-    this.rechargeInterval = setInterval(function() {
-      player.recharge()
-    }, rechargeTime)
-    
-    sounds.birdsong.play()
+    $.addClass('actions', 'hidden')
+  },
+
+  draw: function() {
+    if (!this.object) {
+      this.object = game.drawPlayer(this)
+
+    }
+    else {
+      this.object = game.refreshPlayer(this.object, this)
+      game.canvas.renderAll() // meh, not refreshing?
+    }
+
+    // player info
+    $.text("player-energy", `Energy: ${player.energy}%`)
+
+    return this.object
   }
+
 }
 
 
@@ -253,4 +279,10 @@ $.removeClass = function(id, oldClass) {
   if (classes.indexOf(oldClass) === -1) { return }
   classes.splice(classes.indexOf(oldClass), 1)
   element.className = classes.join(" ")
+}
+
+$.text = function(id, text) {
+  const element = document.getElementById(id);
+  if (!element) { return }
+  element.innerText = text
 }

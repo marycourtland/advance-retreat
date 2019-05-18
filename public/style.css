@@ -75,10 +75,10 @@ h2 {
     
     pointer-events: auto;
     color: #cde2f2;
-    opacity: 0.9;
     user-select: none;
     font-size: 12pt;
     
+    opacity: 0.9;
     position: fixed;
     width: 40vw;
     max-width: 150px;
@@ -89,7 +89,7 @@ h2 {
     padding-bottom: 30px;
     line-height: 0;
 
-    transition: opacity 0.5s ease-out;
+    transition: opacity 3s ease-out-quad;
     
 /*     max-width: 200px; */
   }
@@ -146,7 +146,7 @@ h2 {
   #action-return {
     right: 5vw;
     bottom: 5vh;
-    background-color: #09295a;
+    background-color: #095a44;
   }
 
   #action-return:after {
@@ -189,4 +189,20 @@ h2 {
 
   #intro * {
     text-align: center;
+  }
+
+#player-info {
+  width: 100vw;
+  height: 3em;
+  background: #09295a;
+  color: #cde2f2;
+  user-select: none;
+  font-size: 12pt;
+}
+
+  #player-energy {
+    text-align: center;
+    width: 100vw;
+    display: inline-block;
+    margin: 1em 0;
   }

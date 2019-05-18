@@ -234,8 +234,6 @@
     
     this.canvas.add(playerObj)
     
-    player.object = playerObj // blah
-    
     return playerObj
   }
   
@@ -250,7 +248,6 @@
     playerObj.eyelid2.set('startAngle', eyelidAngles.start)
     playerObj.eyelid2.set('endAngle', eyelidAngles.end)
 
-    player.object = playerObj
     return playerObj
     // TODO: (later?) refresh coords, pupils, etc.
   }
@@ -307,8 +304,8 @@
       top: originPoint.y - 1,
       width: width + 2,
       height: height + 2,
-      fill: "#687c73",
-      opacity: 0.9
+      fill: "#000000",
+      opacity: 0
     })
     this.overlay = overlay
     this.canvas.add(overlay);
@@ -316,6 +313,15 @@
     // put it just behind the player (which is in on the top)
     overlay.bringToFront()
     overlay.sendBackwards()
+
+    overlay.animate('opacity', 0.6, {
+      duration: 3000,
+      onChange: this.canvas.renderAll.bind(this.canvas),
+      onComplete: () => {
+      },
+      easing: fabric.util.ease['easeOutQuad']
+    })
+
   }
 
   Game.prototype.removeRetreatOverlay = function() {
@@ -323,7 +329,15 @@
       return
     }
 
-    this.canvas.remove(this.overlay)
+    this.overlay.animate('opacity', 0, {
+      duration: 3000,
+      onChange: this.canvas.renderAll.bind(this.canvas),
+      onComplete: () => {
+        this.canvas.remove(this.overlay)
+      },
+      easing: fabric.util.ease['easeOutQuad']
+    })
+
   }
 
 })()
