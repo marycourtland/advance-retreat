@@ -102,6 +102,7 @@ function start() {
       // this player
       var playerObj = player.object
       playerObj = game.refreshPlayer(playerObj, player)
+      game.canvas.renderAll() // meh, not refreshing?
       
       // playersById[player.id] = playerObj
     })
@@ -115,10 +116,12 @@ function start() {
     'retreat': () => {
       player.modeRetreat()
       $.removeClass('retreat-overlay', 'hidden')
+      $.addClass('actions', 'hidden')
     },
     'return': () => {
       player.modeAdvance()
       $.addClass('retreat-overlay', 'hidden')
+      $.removeClass('actions', 'hidden')
     }
   }
   
@@ -193,6 +196,8 @@ const player = {
   modeAdvance: function() {
     if (this.mode === 'advance') { return }
     this.mode = 'advance'
+
+    game.removeRetreatOverlay()
     
     sounds.birdsong.pause()
 
@@ -205,6 +210,8 @@ const player = {
   modeRetreat: function() {
     if (this.mode === 'retreat') { return }
     this.mode = 'retreat';
+
+    game.drawRetreatOverlay()
     
     this.rechargeInterval = setInterval(function() {
       player.recharge()

@@ -65,6 +65,10 @@ h2 {
   height: 100%;
 }
 
+  #actions.hidden * {
+    opacity: 0
+  }
+
   .action {
 /*     background: #324a70; */
     background-color: #09295a;
@@ -84,6 +88,8 @@ h2 {
     padding-top: 30px;
     padding-bottom: 30px;
     line-height: 0;
+
+    transition: opacity 0.5s ease-out;
     
 /*     max-width: 200px; */
   }
@@ -171,6 +177,7 @@ h2 {
 
 #retreat-overlay {
   background: #4f4f4f;
+  background: transparent;
   opacity: 0.95;
 }
 

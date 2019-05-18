@@ -276,6 +276,34 @@
     this.canvas.add(circle2);
   }
 
+  Game.prototype.drawRetreatOverlay = function() {
+    const originPoint = game.canvas.vptCoords.tl
+    const width = game.canvas.vptCoords.br.x - originPoint.x
+    const height = game.canvas.vptCoords.br.y - originPoint.y
+    const overlay = new fabric.Rect({
+      left: originPoint.x,
+      top: originPoint.y,
+      width: width,
+      height: height,
+      fill: "#4f4f4f",
+      opacity: 0.95
+    })
+    this.overlay = overlay
+    this.canvas.add(overlay);
+
+    // put it just behind the player (which is in on the top)
+    overlay.bringToFront()
+    overlay.sendBackwards()
+  }
+
+  Game.prototype.removeRetreatOverlay = function() {
+    if (!this.overlay) {
+      return
+    }
+
+    this.canvas.remove(this.overlay)
+  }
+
 })()
 
 
