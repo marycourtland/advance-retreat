@@ -10,7 +10,7 @@ function Player(id, coords) {
   this.energy = 100 // full energy
   
   // something to distinguish different people. HSL 
-  this.color = [utils.randInt(0, 360), 50, 40]
+  this.color = [utils.randInt(0, 360), 70, 40]
 }
 
 Player.prototype = {}

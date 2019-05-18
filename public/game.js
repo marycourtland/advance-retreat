@@ -5,7 +5,7 @@
 (function() {
 
 
-  var gameSize = {x: 800, y: 524}
+  var gameSize = {x: 1280, y: 720}
 
   const paintRadius = 30 // region in which to paint
   const paintStrength = 2
@@ -303,10 +303,10 @@
     const width = game.canvas.vptCoords.br.x - originPoint.x
     const height = game.canvas.vptCoords.br.y - originPoint.y
     const overlay = new fabric.Rect({
-      left: originPoint.x,
-      top: originPoint.y,
-      width: width,
-      height: height,
+      left: originPoint.x - 1,
+      top: originPoint.y - 1,
+      width: width + 2,
+      height: height + 2,
       fill: "#687c73",
       opacity: 0.9
     })
