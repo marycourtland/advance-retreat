@@ -220,6 +220,11 @@
     playerObj.pupil2 = pupil2
     playerObj.eyelid1 = eyelid1
     playerObj.eyelid2 = eyelid2
+
+
+    playerObj.eyelid1.objectCaching = false
+    playerObj.eyelid2.objectCaching = false
+    playerObj.objectCaching = false
     
     this.canvas.add(playerObj)
     
@@ -238,8 +243,9 @@
     playerObj.eyelid1.set('endAngle', eyelidAngles.end)
     playerObj.eyelid2.set('startAngle', eyelidAngles.start)
     playerObj.eyelid2.set('endAngle', eyelidAngles.end)
-    
-    
+
+    player.object = playerObj
+    return playerObj
     // TODO: (later?) refresh coords, pupils, etc.
   }
   

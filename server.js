@@ -3,6 +3,8 @@ const app = express();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 
+const DEFAULT_PORT = 8000
+
 
 app.use(express.static('public'));
 
@@ -21,7 +23,7 @@ app.get('/credits', function(request, response) {
   response.sendFile(__dirname + '/views/credits.html');
 });
 
-const listener = server.listen(process.env.PORT, function() {
+const listener = server.listen(process.env.PORT || DEFAULT_PORT, function() {
   console.log('Your app is listening on port ' + listener.address().port);
 })
 
