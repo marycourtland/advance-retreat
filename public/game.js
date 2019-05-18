@@ -18,14 +18,18 @@
 
 
   const Game = function(canvasId, size) {
-    if (size) {
-      gameSize = size
+    if (!size) {
+      size = gameSize
     }
     this.canvas = new fabric.Canvas(canvasId, {
       selection: false
     });
-    this.canvas.setWidth(gameSize.x)
-    this.canvas.setHeight(gameSize.y)
+    this.canvas.setWidth(size.x)
+    this.canvas.setHeight(size.y)
+
+    console.log('game size:', this.canvas.width, size)
+
+    this.drawMap()
 
   }
   
@@ -95,6 +99,7 @@
     this.canvas.add(turbineImg);
     
     turbineImg.sendToBack();
+    turbineImg.bringForward();
     
     return turbineImg
   }
@@ -114,6 +119,7 @@
     this.canvas.add(plantImg);
     
     plantImg.sendToBack();
+    plantImg. bringForward();
     
     return plantImg
   }
@@ -276,6 +282,22 @@
     this.canvas.add(circle2);
   }
 
+  Game.prototype.drawMap = function() {
+    const mapImg = new fabric.Image(document.getElementById('map'), {
+      left: 0,
+      top: 0,
+      width: gameSize.x,
+      height: gameSize.y,
+      selectable: false
+    });
+    
+    this.canvas.add(mapImg);
+    
+    mapImg.sendToBack();
+    
+    return mapImg
+  }
+  
   Game.prototype.drawRetreatOverlay = function() {
     const originPoint = game.canvas.vptCoords.tl
     const width = game.canvas.vptCoords.br.x - originPoint.x
@@ -285,8 +307,8 @@
       top: originPoint.y,
       width: width,
       height: height,
-      fill: "#4f4f4f",
-      opacity: 0.95
+      fill: "#687c73",
+      opacity: 0.9
     })
     this.overlay = overlay
     this.canvas.add(overlay);

@@ -36,7 +36,7 @@ h2 {
     position: absolute;
     top: 0;
     left: 0;
-    background-color: #d3d3d3;
+    background-color: #635a57;
   }
   #boundary {
     width: 800px;
@@ -53,10 +53,10 @@ h2 {
   margin-right: auto;
 /*   margin-top: 40px; */
 }
-
+/* 
 .solo #game {
   background-color: transparent;
-}
+} */
 
 
 #actions {
