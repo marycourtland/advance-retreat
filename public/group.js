@@ -50,7 +50,7 @@ window.onload = function() {
       if (item.type === 'turbine') {
         obj = game.drawTurbine(item.coords)
       }
-      items[item.id] = obj
+      itemsById[item.id] = obj
     })
 
     socket.on("item:removed", (item) => {

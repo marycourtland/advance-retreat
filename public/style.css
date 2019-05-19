@@ -1,5 +1,11 @@
 /* styles */
-/* called by your view template */
+
+@font-face {
+  font-family: 'Didot';
+  font-style: normal;
+  font-weight: normal;
+  src: local('/assets/fonts/Didot'), url('/assets/fonts/Didot.woff') format('woff');
+}
 
 * {
   box-sizing: border-box;
@@ -11,14 +17,42 @@
 
 body {
   /* background-color: #635a57; */
-  background-color: #21353a;
+  /* background-color: #21353a; */
+  background-color: #1a3237;
   margin: 0;
-  font-family: helvetica, arial, sans-serif;
+  font-family: Didot, Times, serif;
+  font-style: italic;
+  color: #b6c9a7;
+}
+
+.group a {
+  color: #b6c9a7;
 }
 
 h2 {
   margin-top: 3em;
 }
+
+.group header {
+  height: 244px;
+  position: absolute;
+  left: 0;
+  padding: 1em 2em;
+  z-index: 10;
+  width: 1280px;
+  vertical-align: top;
+}
+  .group header * {
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  .group header h1 img {
+    margin-top: 0;
+  }
+  .group header h1 img {
+    width: 300px
+  }
 
 #game-container {
   position: fixed;
@@ -26,8 +60,15 @@ h2 {
   left: 0;
   width: 100%;
 }
+  /* canvas {
+    -webkit-box-shadow: inset 0px 0px 50px 40px #1a3237;
+    -moz-box-shadow: inset 0px 0px 50px 40px #1a3237;
+    box-shadow: inset 0px 0px 50px 40px #1a3237;
+  } */
+
   .group #game-container {
-    left: 350px;
+    /* left: 300px; */
+    top: 200px;
   }
 
   #game-container > * {
@@ -40,7 +81,7 @@ h2 {
     position: absolute;
     top: 0;
     left: 0;
-    background-color: #21353a;
+    background-color: #1a3237;
   }
 
 
@@ -81,12 +122,13 @@ h2 {
 
   .action {
 /*     background: #324a70; */
-    background-color: #09295a;
+    background-color: #347cca;
     
     pointer-events: auto;
     color: #cde2f2;
     user-select: none;
-    font-size: 10pt;
+    font-size: 14px;
+    font-weight: bold;
     
     opacity: 0.9;
     position: fixed;
@@ -161,7 +203,7 @@ h2 {
   }
 
   #action-motivate:after {
-    content: "What motivates you to keep going?";
+    content: "What motivates you each day?";
   }
 
 
@@ -204,29 +246,34 @@ h2 {
 }
 
 #intro {
-  background: #d3d3d3;
-  color: #21353a;
+  background: #1a3237;
+  color: #b6c9a7;
   opacity: 1;
 }
 
   #intro * {
+    margin: auto;
+    max-width: 400px;
     text-align: center;
   }
 
 #player-info {
   width: 100vw;
-  height: 3em;
-  background: #09295a;
+  height: 2.5em;
+  background: #085298;
   color: #cde2f2;
   user-select: none;
-  font-size: 10pt;
+  font-size: 14px;
+  font-family: Helvetica Neue, Helvetica, sans-serif;
+  font-style: normal;
+  font-weight: bold;
 }
 
   #player-energy {
     text-align: center;
     width: 100vw;
     display: inline-block;
-    margin: 1em 0;
+    margin: 0.5em 0;
   }
 
   #motivate-input {
@@ -243,7 +290,7 @@ h2 {
       top: 25vh;
       left: 5vw;
       opacity: 1 !important;
-      background-color: #d3d3d3;
+      background-color: #bcbab4;
       font-size: 17px;
       padding: 1em;
     }
@@ -264,13 +311,14 @@ h2 {
 #motivation-list {
   position: absolute;
   top: 0;
-  background: #d3d3d3;
-  color: #21353a;
+  right: 0;
+  background: #bcbab4;
+  color: #1a3237;
   height: 100%;
   width: 350px;
   text-align: center;
   font-size: 16pt;
-  border-right: 4px solid #080f10;
+  border-left: 4px solid #080f10;
 }
 
   #motivation-list .motivation {
@@ -278,12 +326,24 @@ h2 {
     font-size: 14pt;
   }
 
-  #player-qr {
-    position: absolute;
-    bottom: 0;
-    width: 200px;
-    height: 200px;
-    background-image: url(/images/player-qr.png);
-    margin-left: 75px;
-    margin-bottom: 20px;
-  }
+#player-qr {
+  width: 200px;
+  margin: 20px;
+  font-size: 20px;
+  text-align: center;
+  /* float: right; */
+  position: absolute;
+  bottom: 0
+}
+#player-qr img {
+  width: 120px;
+  margin: auto;
+}
+
+#credits {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 1em;
+  font-size: 18px;
+}

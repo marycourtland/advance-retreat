@@ -112,7 +112,7 @@ function start() {
           }
           else if (player.mode === 'retreat' && player.energy >= MIN_ENERGY) {
             // Player can go back to normal mode now
-            $.removeClass('retreat-overlay', 'hidden')
+            $.show("action-return")
           }
         }
         else {
@@ -294,17 +294,21 @@ const player = {
       this.rechargeInterval = setInterval(function() {
         player.recharge()
       }, rechargeTime)
+      // do this immediately
+      $.removeClass('retreat-overlay', 'hidden')
 
       this.object.bringToFront()
       
       sounds.birdsong.play()
-
-
-      if (player.energy >= MIN_ENERGY) {
-        $.removeClass('retreat-overlay', 'hidden')
-      }
     }, 3000)
 
+
+    if (player.energy >= MIN_ENERGY) {
+      $.show("action-return")
+    }
+    else {
+      $.hide("action-return")
+    }
     
     $.addClass('actions', 'hidden')
   },
@@ -329,7 +333,7 @@ const player = {
     drawPlayer(this)
 
     // player info
-    $.text("player-energy", `Energy: ${player.energy}%`)
+    $.text("player-energy", `Your energy: ${player.energy}%`)
 
     return this.object
   }
