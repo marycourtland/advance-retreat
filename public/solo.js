@@ -26,6 +26,15 @@ var game
 window.addEventListener("touchstart", window.unlock);
 
 window.onload = function() {
+  const motivate = document.getElementById("motivate-input")
+  motivate.onclick = function() {
+    $.hide("motivate-input")
+  }
+  const motivateText = document.getElementById("motivate-text")
+  motivateText.onclick = function(evt) {
+    evt.stopPropagation()
+  }
+  
   const intro = document.getElementById("intro")
   intro.onclick = function() {
     // not sure if this would be OK outside of the user onclick. TODO: try that
@@ -128,6 +137,16 @@ function start() {
     },
     'return': () => {
       player.modeAdvance()
+    },
+    'motivate': () => {
+      $.show("motivate-input")
+      $.focus("motivate-text")
+    },
+    'motivate-send': () => {
+      $.hide("motivate-input")
+      socket.emit('action:motivation', {
+        text: document.getElementById("motivate-text").value.trim()
+    })
     }
   }
   
@@ -381,6 +400,15 @@ $.text = function(id, text) {
   const element = document.getElementById(id);
   if (!element) { return }
   element.innerText = text
+}
+
+$.focus = function(id) {
+  const element = document.getElementById(id);
+  if (!element) { return }
+  element.onfocus = function(evt) {
+    evt.preventDefault()
+  }
+  element.focus({preventScroll: true})
 }
 
 // mathy

@@ -36,7 +36,11 @@ io.on('connection', function (socket) {
     socket.join("map-view")
     
     if (typeof callback === 'function') {
-      callback(null, {players: playersById, items: itemsById})
+      callback(null, {
+        players: playersById,
+        items: itemsById,
+        motivations: motivations
+      })
     }
   })
   
@@ -91,6 +95,19 @@ io.on('connection', function (socket) {
       player.updateCoords(data.coords)
     }
   })
+
+  
+  socket.on('action:motivation', (data) => {
+    if (!data.text) { return }
+
+    // player gets a lot of energy
+    var player = playersById[socket.playerId]
+    if (player) {
+      player.updateEnergy(energyActions.motivation)
+    }
+
+    showMotivationText(data.text)
+  })
   
   socket.on('disconnect', () => {
     const player = playersById[socket.playerId]
@@ -122,6 +139,7 @@ const coordLocations = require('./locations.json')
 // meh
 const playersById = {}
 const itemsById = {}
+const motivations = []
 
 
 function addPlayer(id) {
@@ -148,9 +166,8 @@ function addPlant(coords) {
     coords
   )
   itemsById[newPlant.id] = newPlant
-  io.in("map-view").emit("plant:new", newPlant) 
+  io.in("map-view").emit("item:new", newPlant) 
 }
-
 
 function addTurbine(coords) {
   console.log('building turbine', coords)
@@ -160,5 +177,11 @@ function addTurbine(coords) {
     coords
   )
   itemsById[newTurbine.id] = newTurbine
-  io.in("map-view").emit("turbine:new", newTurbine)
+  io.in("map-view").emit("item:new", newTurbine)
+}
+
+function showMotivationText(text) {
+  if (!text || typeof text !== 'string') { return }
+  motivations.splice(0, 0, text.trim()) // put new ones at the beginning
+  global.io.in('map-view').emit("motivations:refresh", motivations)
 }
