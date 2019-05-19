@@ -9,12 +9,12 @@ const DEFAULT_PORT = 8000
 app.use(express.static('public'));
 
 // mobile client
-app.get('/', function(request, response) {
+app.get('/player', function(request, response) {
   response.sendFile(__dirname + '/views/solo.html');
 });
 
 // main game
-app.get('/game', function(request, response) {
+app.get('/', function(request, response) {
   response.sendFile(__dirname + '/views/group.html');
 });
 
